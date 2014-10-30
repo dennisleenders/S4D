@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-* Author : Dennis Leenders                                                          *
+* Author : Dennis Leenders & Hugo Wiledal                                           *
 * Description: Standard gulp project file                                           *
 * Version: 1.0                                                                      *
 * Plugins used :                                                                    *
@@ -57,29 +57,6 @@ gulp.task("watch", function() {
   console.log("-- GULP IS WATCHING");
   gulp.watch(["public-source/javascripts/**"], ["scripts"]);
   gulp.watch(["public-source/stylesheets/**", "public-source/images/**"], ["styles"]);
-});
-
-/////////////////
-// PRODUCTION //
-///////////////
-
-// Scripts
-gulp.task("deploy-scripts", function() {
-  console.log("-- gulp is deploying 'scripts'");
-
-  gulp.src("content/themes/volkshotel/public/javascripts/app.js")
-    .pipe(uglify())
-      .on('error', gutil.log)
-    .pipe(gulp.dest("content/themes/volkshotel/public/javascripts"));
-});
-
-// Styles
-gulp.task("deploy-styles", function() {
-  console.log("-- gulp is deploying 'styles'");
-  gulp.src("content/themes/volkshotel/public/stylesheets/styles.css")
-    .pipe(mincss())
-      .on('error', gutil.log)
-    .pipe(gulp.dest("content/themes/volkshotel/public/stylesheets"));
 });
 
 ////////////
