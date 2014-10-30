@@ -1,0 +1,24 @@
+////////////////////////////
+// COLOR SCHEMES ///////////
+////////////////////////////
+
+$red: #e74c3c; // Alizar Red
+$blue: #2c3e50; // Midnight Blue
+$white: #ecf0f1; // Cloud White
+$seagreen: #16a085; // Green Sea Green
+$emerald: #2ecc71; // Emerald Green
+$carrot: #e67e22; // Carrot Orange
+
+// Everyone obey's the general first
+
+html,body {
+  height: 100%;
+  width: 100%;
+  background: $white;
+  text-align: center;
+  overflow: hidden;
+}
+
+section {
+  display: inline-block;
+}
