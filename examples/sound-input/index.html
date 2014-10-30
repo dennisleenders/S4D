@@ -24,6 +24,7 @@
     // once everything is loaded, we run our Three.js stuff.
     $(function () {
       var speed;
+      var rotationSpeed = 0.01;
 
       navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
       navigator.getUserMedia( {audio:true}, gotStream, function(){
@@ -102,7 +103,6 @@
       var controls = new function () {
           this.cameraNear = camera.near;
           this.cameraFar = camera.far;
-          this.rotationSpeed = 0.02;
 
           this.removeCube = function () {
               var allChildren = scene.children;
@@ -134,7 +134,6 @@
       }
 
       var gui = new dat.GUI();
-      gui.add(controls, 'rotationSpeed', 0, 0.5);
       gui.add(controls, 'addCube');
       gui.add(controls, 'removeCube');
       gui.add(controls, 'cameraNear', 0, 50).onChange(function (e) {
@@ -150,16 +149,18 @@
       function render() {
           stats.update();
 
-          speed += 0.01
-
+          if(speed != NaN && speed != undefined){
+            rotationSpeed = speed + 0.01
+          }
+          
           // rotate the cubes around its axes
           scene.traverse(function (e) {
               if (e instanceof THREE.Mesh) {
                   // if set to controls.speed it WILL spawn the blocks.
                   // voice speed will not spawn the blocks.
-                  e.rotation.x += speed;
-                  e.rotation.y += speed;
-                  e.rotation.z += speed;
+                  e.rotation.x += rotationSpeed;
+                  e.rotation.y += rotationSpeed;
+                  e.rotation.z += rotationSpeed;
               }
           });
 
