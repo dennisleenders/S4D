@@ -18,7 +18,6 @@ function onDocumentMouseDown( e ) {
   var intersects = raycaster.intersectObjects( scene.children );
 
   if ( intersects.length > 0 ) {
-    //scene.children.lookAt(intersects[0])
     console.log(intersects[0]);
     intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
   }
