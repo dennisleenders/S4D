@@ -6,7 +6,7 @@ var stats = initStats();
 var scene = new THREE.Scene();
 
 // creates a material that overwrites all materials (DEBUG)
-scene.overrideMaterial = new THREE.MeshDepthMaterial({wireframe:false});
+//scene.overrideMaterial = new THREE.MeshDepthMaterial({wireframe:false});
 
 // create a camera, which defines where we're looking at.
 var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 10, 148);

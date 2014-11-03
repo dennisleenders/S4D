@@ -14,11 +14,12 @@ function onDocumentMouseDown( e ) {
   // raycaster will get the correct coordinates 
   raycaster.ray.set( camera.position, vector.sub( camera.position ).normalize() );
 
-
   // if an intersection between our mouse and an object is found then do something to that object
   var intersects = raycaster.intersectObjects( scene.children );
 
   if ( intersects.length > 0 ) {
-    //intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
+    //scene.children.lookAt(intersects[0])
+    console.log(intersects[0]);
+    intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
   }
 }

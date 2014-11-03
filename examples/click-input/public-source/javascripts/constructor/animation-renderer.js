@@ -5,11 +5,12 @@ render();
 function render() {
     stats.update();
 
+    // this will give it a default rotation even if the user declines microphone access
     if(speed != NaN && speed != undefined){
       rotationSpeed = speed + 0.01
     }
     
-    // rotate the cubes around its axes except the heart
+    // rotate the triangles around its axes except the heart
     scene.traverse(function (e) {
         if (e instanceof THREE.Mesh && e.name != "middle") {
 

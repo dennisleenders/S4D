@@ -38465,7 +38465,7 @@ var stats = initStats();
 var scene = new THREE.Scene();
 
 // creates a material that overwrites all materials (DEBUG)
-scene.overrideMaterial = new THREE.MeshDepthMaterial({wireframe:false});
+//scene.overrideMaterial = new THREE.MeshDepthMaterial({wireframe:false});
 
 // create a camera, which defines where we're looking at.
 var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 10, 148);
@@ -38492,21 +38492,22 @@ $("#WebGL-output").append(renderer.domElement);
 
 // triangle spawn
 for (var i = 0; i < 1000; i++) {
-    var cubeSize = Math.random();
-    var cubeGeometry = new THREE.TetrahedronGeometry(cubeSize,0);
-    var cubeMaterial = new THREE.MeshBasicMaterial({
-        color: Math.random() * 0xffffff        
+    var triangleSize = Math.random();
+    var triangleGeometry = new THREE.TetrahedronGeometry(triangleSize,0);
+    var triangleMaterialDepth = new THREE.MeshDepthMaterial();
+    var triangleMaterial = new THREE.MeshBasicMaterial({
+        color: 0x000000,
+        wireframe:true       
     });
-    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-    cube.castShadow = true;
+    var triangle = new THREE.SceneUtils.createMultiMaterialObject(triangleGeometry,[triangleMaterial,triangleMaterialDepth]);
 
-    // position the cube randomly in the scene
-    cube.position.x = -60 + Math.round((Math.random() * 100));
-    cube.position.y = Math.round((Math.random() * 10));
-    cube.position.z = -100 + Math.round((Math.random() * 150));
+    // position the triangle randomly in the scene
+    triangle.position.x = -60 + Math.round((Math.random() * 100));
+    triangle.position.y = Math.round((Math.random() * 10));
+    triangle.position.z = -100 + Math.round((Math.random() * 150));
 
-    // add the cube to the scene
-    scene.add(cube);
+    // add the triangle to the scene
+    scene.add(triangle);
 };
 
 
@@ -38541,12 +38542,13 @@ function onDocumentMouseDown( e ) {
   // raycaster will get the correct coordinates 
   raycaster.ray.set( camera.position, vector.sub( camera.position ).normalize() );
 
-
   // if an intersection between our mouse and an object is found then do something to that object
   var intersects = raycaster.intersectObjects( scene.children );
 
   if ( intersects.length > 0 ) {
-    //intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
+    //scene.children.lookAt(intersects[0])
+    console.log(intersects[0]);
+    intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
   }
 }
 
@@ -38626,11 +38628,12 @@ render();
 function render() {
     stats.update();
 
+    // this will give it a default rotation even if the user declines microphone access
     if(speed != NaN && speed != undefined){
       rotationSpeed = speed + 0.01
     }
     
-    // rotate the cubes around its axes except the heart
+    // rotate the triangles around its axes except the heart
     scene.traverse(function (e) {
         if (e instanceof THREE.Mesh && e.name != "middle") {
 
