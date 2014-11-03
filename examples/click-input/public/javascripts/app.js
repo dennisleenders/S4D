@@ -38427,6 +38427,11 @@ var rotationSpeed = 0.01;
 var directionHeartUp = true;
 var directionHeartDown = false;
 
+// Will hold all the multiple material objects for click events
+// WE only need this because we have multiple material objects, else we could use
+// scene.childerns array
+var objects = [];
+
 
      
 // we get the users microphone
@@ -38499,6 +38504,8 @@ for (var i = 0; i < 1000; i++) {
         color: 0x000000,
         wireframe:true       
     });
+
+    //var triangle = new THREE.Mesh(triangleGeometry, triangleMaterial);
     var triangle = new THREE.SceneUtils.createMultiMaterialObject(triangleGeometry,[triangleMaterial,triangleMaterialDepth]);
 
     // position the triangle randomly in the scene
@@ -38508,6 +38515,11 @@ for (var i = 0; i < 1000; i++) {
 
     // add the triangle to the scene
     scene.add(triangle);
+
+    // need to push the children of the objects into its own array.
+    // we need this since the click function can't find the geomatry in multimply material objects
+    // since the multimaterial objects have the geomatry 2 layers deep
+    objects.push(triangle.children[0]);
 };
 
 
@@ -38528,7 +38540,7 @@ scene.add(middle);
 
 
 // adds a listener for the mouse event
-document.addEventListener("mousedown", onDocumentMouseDown);
+document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 
 function onDocumentMouseDown( e ) {
   // will prevent default action
@@ -38543,7 +38555,9 @@ function onDocumentMouseDown( e ) {
   raycaster.ray.set( camera.position, vector.sub( camera.position ).normalize() );
 
   // if an intersection between our mouse and an object is found then do something to that object
-  var intersects = raycaster.intersectObjects( scene.children );
+  // we call OBJECTS which is a array of all multiple material objects. if you use single material objects
+  // we will write scene.children
+  var intersects = raycaster.intersectObjects( objects );
 
   if ( intersects.length > 0 ) {
     console.log(intersects[0]);
@@ -38564,60 +38578,60 @@ function onWindowResize() {
 }
 
 
-var controls = new function () {
-    this.cameraNear = camera.near;
-    this.cameraFar = camera.far;
-    this.cameraX = camera.position.x;
-    this.cameraZ = camera.position.z;
-    this.cameraY = camera.position.y;
+// var controls = new function () {
+//     this.cameraNear = camera.near;
+//     this.cameraFar = camera.far;
+//     this.cameraX = camera.position.x;
+//     this.cameraZ = camera.position.z;
+//     this.cameraY = camera.position.y;
 
-    this.removeCube = function () {
-        var allChildren = scene.children;
-        var lastObject = allChildren[allChildren.length - 1];
-        if (lastObject instanceof THREE.Mesh) {
-            scene.remove(lastObject);
-        }
-    }
+//     this.removeCube = function () {
+//         var allChildren = scene.children;
+//         var lastObject = allChildren[allChildren.length - 1];
+//         if (lastObject instanceof THREE.Mesh) {
+//             scene.remove(lastObject);
+//         }
+//     }
 
-    this.addTriangle = function () {
-        var cubeSize = Math.random();
-        var cubeGeometry = new THREE.TetrahedronGeometry(cubeSize,0);
-        var cubeMaterial = new THREE.MeshLambertMaterial({color: Math.random() * 0xffffff });
-        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        cube.castShadow = true;
+//     this.addTriangle = function () {
+//         var cubeSize = Math.random();
+//         var cubeGeometry = new THREE.TetrahedronGeometry(cubeSize,0);
+//         var cubeMaterial = new THREE.MeshLambertMaterial({color: Math.random() * 0xffffff });
+//         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+//         cube.castShadow = true;
 
-        // position the cube randomly in the scene
-        cube.position.x = -60 + Math.round((Math.random() * 100));
-        cube.position.y = Math.round((Math.random() * 10));
-        cube.position.z = -100 + Math.round((Math.random() * 150));
+//         // position the cube randomly in the scene
+//         cube.position.x = -60 + Math.round((Math.random() * 100));
+//         cube.position.y = Math.round((Math.random() * 10));
+//         cube.position.z = -100 + Math.round((Math.random() * 150));
 
-        // add the cube to the scene
-        scene.add(cube);
-    };
+//         // add the cube to the scene
+//         scene.add(cube);
+//     };
 
-    this.outputObjects = function () {
-        console.log(scene.children);
-    }
-}
+//     this.outputObjects = function () {
+//         console.log(scene.children);
+//     }
+// }
 
-var gui = new dat.GUI();
-gui.add(controls, 'addTriangle');
-gui.add(controls, 'removeCube');
-gui.add(controls, 'cameraNear', 0, 50).onChange(function (e) {
-    camera.near = e;
-});
-gui.add(controls, 'cameraFar', 50, 200).onChange(function (e) {
-    camera.far = e;
-});
-gui.add(controls, 'cameraX', 0, 200).onChange(function (e) {
-    camera.position.x = e;
-});
-gui.add(controls, 'cameraY', 0, 200).onChange(function (e) {
-    camera.position.y = e;
-});
-gui.add(controls, 'cameraZ', 0, 200).onChange(function (e) {
-    camera.position.z = e;
-});
+// var gui = new dat.GUI();
+// gui.add(controls, 'addTriangle');
+// gui.add(controls, 'removeCube');
+// gui.add(controls, 'cameraNear', 0, 50).onChange(function (e) {
+//     camera.near = e;
+// });
+// gui.add(controls, 'cameraFar', 50, 200).onChange(function (e) {
+//     camera.far = e;
+// });
+// gui.add(controls, 'cameraX', 0, 200).onChange(function (e) {
+//     camera.position.x = e;
+// });
+// gui.add(controls, 'cameraY', 0, 200).onChange(function (e) {
+//     camera.position.y = e;
+// });
+// gui.add(controls, 'cameraZ', 0, 200).onChange(function (e) {
+//     camera.position.z = e;
+// });
 
 
 

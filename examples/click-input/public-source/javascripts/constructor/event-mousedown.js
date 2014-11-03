@@ -1,6 +1,6 @@
 
 // adds a listener for the mouse event
-document.addEventListener("mousedown", onDocumentMouseDown);
+document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 
 function onDocumentMouseDown( e ) {
   // will prevent default action
@@ -15,7 +15,9 @@ function onDocumentMouseDown( e ) {
   raycaster.ray.set( camera.position, vector.sub( camera.position ).normalize() );
 
   // if an intersection between our mouse and an object is found then do something to that object
-  var intersects = raycaster.intersectObjects( scene.children );
+  // we call OBJECTS which is a array of all multiple material objects. if you use single material objects
+  // we will write scene.children
+  var intersects = raycaster.intersectObjects( objects );
 
   if ( intersects.length > 0 ) {
     console.log(intersects[0]);

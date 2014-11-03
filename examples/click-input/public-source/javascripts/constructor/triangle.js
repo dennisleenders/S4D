@@ -8,6 +8,8 @@ for (var i = 0; i < 1000; i++) {
         color: 0x000000,
         wireframe:true       
     });
+
+    //var triangle = new THREE.Mesh(triangleGeometry, triangleMaterial);
     var triangle = new THREE.SceneUtils.createMultiMaterialObject(triangleGeometry,[triangleMaterial,triangleMaterialDepth]);
 
     // position the triangle randomly in the scene
@@ -17,4 +19,9 @@ for (var i = 0; i < 1000; i++) {
 
     // add the triangle to the scene
     scene.add(triangle);
+
+    // need to push the children of the objects into its own array.
+    // we need this since the click function can't find the geomatry in multimply material objects
+    // since the multimaterial objects have the geomatry 2 layers deep
+    objects.push(triangle.children[0]);
 };
