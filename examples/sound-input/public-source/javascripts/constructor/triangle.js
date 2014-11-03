@@ -3,7 +3,9 @@
 for (var i = 0; i < 1000; i++) {
     var cubeSize = Math.random();
     var cubeGeometry = new THREE.TetrahedronGeometry(cubeSize,0);
-    var cubeMaterial = new THREE.MeshBasicMaterial({color: Math.random() * 0xffffff });
+    var cubeMaterial = new THREE.MeshBasicMaterial({
+        color: Math.random() * 0xffffff        
+    });
     var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     cube.castShadow = true;
 

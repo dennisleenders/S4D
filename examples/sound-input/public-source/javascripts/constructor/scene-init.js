@@ -1,9 +1,11 @@
 
-
+// initiates the stat UI
 var stats = initStats();
 
 // create a scene, that will hold all our elements such as objects, cameras and lights.
 var scene = new THREE.Scene();
+
+// creates a material that overwrites all materials (DEBUG)
 scene.overrideMaterial = new THREE.MeshDepthMaterial({wireframe:false});
 
 // create a camera, which defines where we're looking at.

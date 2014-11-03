@@ -1,5 +1,5 @@
      
-
+// we get the users microphone
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 navigator.getUserMedia( {audio:true}, gotStream, function(){
  
@@ -13,12 +13,12 @@ function gotStream(stream) {
     // Create an AudioNode from the stream.
     var mediaStreamSource = audioContext.createMediaStreamSource( stream );
 
+    // an analyser node can check data of a stream
     var analyser = audioContext.createAnalyser();
     var frequencyData = new Uint8Array(analyser.frequencyBinCount);
     mediaStreamSource.connect(analyser);
-    //analyser.connect(audioContext.destination);
 
-
+    // this function will send the frequency data to the rest of the code
     var live = function(){
       analyser.getByteFrequencyData(frequencyData);
       speed = frequencyData[0]/1000;

@@ -38429,7 +38429,7 @@ var directionHeartDown = false;
 
 
      
-
+// we get the users microphone
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 navigator.getUserMedia( {audio:true}, gotStream, function(){
  
@@ -38443,12 +38443,12 @@ function gotStream(stream) {
     // Create an AudioNode from the stream.
     var mediaStreamSource = audioContext.createMediaStreamSource( stream );
 
+    // an analyser node can check data of a stream
     var analyser = audioContext.createAnalyser();
     var frequencyData = new Uint8Array(analyser.frequencyBinCount);
     mediaStreamSource.connect(analyser);
-    //analyser.connect(audioContext.destination);
 
-
+    // this function will send the frequency data to the rest of the code
     var live = function(){
       analyser.getByteFrequencyData(frequencyData);
       speed = frequencyData[0]/1000;
@@ -38458,11 +38458,13 @@ function gotStream(stream) {
 }
 
 
-
+// initiates the stat UI
 var stats = initStats();
 
 // create a scene, that will hold all our elements such as objects, cameras and lights.
 var scene = new THREE.Scene();
+
+// creates a material that overwrites all materials (DEBUG)
 scene.overrideMaterial = new THREE.MeshDepthMaterial({wireframe:false});
 
 // create a camera, which defines where we're looking at.
@@ -38492,7 +38494,9 @@ $("#WebGL-output").append(renderer.domElement);
 for (var i = 0; i < 1000; i++) {
     var cubeSize = Math.random();
     var cubeGeometry = new THREE.TetrahedronGeometry(cubeSize,0);
-    var cubeMaterial = new THREE.MeshBasicMaterial({color: Math.random() * 0xffffff });
+    var cubeMaterial = new THREE.MeshBasicMaterial({
+        color: Math.random() * 0xffffff        
+    });
     var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     cube.castShadow = true;
 
@@ -38522,16 +38526,23 @@ scene.add(middle);
 
 
 
+// adds a listener for the mouse event
 document.addEventListener("mousedown", onDocumentMouseDown);
 
 function onDocumentMouseDown( e ) {
+  // will prevent default action
   e.preventDefault();
 
+  // makes a new vector that will register the position the mouse click (e.client) 
   var vector = new THREE.Vector3();
   vector.set( ( e.clientX / window.innerWidth ) * 2 - 1, - ( e.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+  // unproject will turn 3D space into 2D space so we can fetch the correct position
   vector.unproject( camera );
+  // raycaster will get the correct coordinates 
   raycaster.ray.set( camera.position, vector.sub( camera.position ).normalize() );
 
+
+  // if an intersection between our mouse and an object is found then do something to that object
   var intersects = raycaster.intersectObjects( scene.children );
 
   if ( intersects.length > 0 ) {
@@ -38540,9 +38551,10 @@ function onDocumentMouseDown( e ) {
 }
 
 
-
+// adds event listener for resize
 window.addEventListener("resize", onWindowResize);
 
+// function will update the camera matrix on resize with the new heights and widths
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -38608,7 +38620,7 @@ gui.add(controls, 'cameraZ', 0, 200).onChange(function (e) {
 
 
 
-
+// initiates the renderer, this renderer will loop every millsecond
 render();
 
 function render() {
@@ -38634,6 +38646,8 @@ function render() {
     });
 
     // hovering of the heart
+    // checks if the position is higher or lower than set value
+    // will change direction if its higher than 18 or lower than 17
     if(middle.position.y >= 18 && directionHeartUp == true){
       directionHeartUp = false;
       directionHeartDown = true;
@@ -38642,13 +38656,14 @@ function render() {
       directionHeartDown = false;
     }
 
+    // checking if the direction is up or down, animate from that value
     if(directionHeartUp == true){
       middle.position.y += 0.005
     }else{
       middle.position.y -= 0.005
     }
 
-    // render using requestAnimationFrame
+    // render using requestAnimationFrame will cause it to loop the function over and over
     requestAnimationFrame(render);
     renderer.render(scene, camera);
 }
@@ -38657,9 +38672,9 @@ function initStats() {
 
     var stats = new Stats();
 
-    stats.setMode(0); // 0: fps, 1: ms
+    stats.setMode(0); 
 
-    // Align top-left
+    // align top-left
     stats.domElement.style.position = 'absolute';
     stats.domElement.style.left = '0px';
     stats.domElement.style.top = '0px';
