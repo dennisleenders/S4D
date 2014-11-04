@@ -38586,26 +38586,38 @@ function onDocumentMouseDown( e ) {
     
     //# Y #//
     var positionY = intersects[0].object.parent.position.y;
-    var maxPositionY = positionY + 2 ;
-    var minPositionY = positionY - 2 ;
+    var maxPositionY = positionY + 5 ;
+    var minPositionY = positionY - 5 ;
 
     //# X #//
     var positionX = intersects[0].object.parent.position.x;
-    var maxPositionX = positionX + 0.01 ;
-    var minPositionX = positionX - 0.01 ;
+    var maxPositionX = positionX + 5 ;
+    var minPositionX = positionX - 5 ;
+
+    var timer = 10;
+    var tweenSpeed = 2;
             
     for (var i = 0; i < scene.children.length; i++) {
       if (scene.children[i].position.z <= maxPositionZ && scene.children[i].position.z >= minPositionZ) {
-        //scene.children[i].children[0].material.color.setHex(0xff0f0f);
-        //console.log(scene.children[i].position.z);
+        if (scene.children[i].position.y <= maxPositionY && scene.children[i].position.y >= minPositionY) {
+          if (scene.children[i].position.x <= maxPositionX && scene.children[i].position.x >= minPositionX) {
+            //timer = timer + tweenSpeed
+            //doTimeout(i,timer);          
+          }
+        }
       }
-      if (scene.children[i].position.y <= maxPositionY && scene.children[i].position.y >= minPositionY) {
-        scene.children[i].children[0].material.color.setHex(0xff0f00);
-        
+      if (scene.children[i].position.x <= maxPositionX && scene.children[i].position.x >= minPositionX) {
+        timer = timer + tweenSpeed
+        doTimeout(i,timer);
       }
     }
-
   }
+}
+
+function doTimeout(i,timer){
+  setTimeout(function() {
+    scene.children[i].children[0].material.color.setHex(0xff0f00) 
+  }, timer);
 }
 
 
