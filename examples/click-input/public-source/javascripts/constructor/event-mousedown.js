@@ -68,5 +68,8 @@ function onDocumentMouseDown( e ) {
 function doTimeout(i,timer){
   setTimeout(function() {
     scene.children[i].children[0].material.color.setHex(0xff0f00) 
-  }, timer);
+    setTimeout(function() {
+      scene.children[i].children[0].material.color.setHex(0xffffff) 
+    }, 1000);
+  }, timer); 
 }
