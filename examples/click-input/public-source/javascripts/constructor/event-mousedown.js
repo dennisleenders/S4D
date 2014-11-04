@@ -20,6 +20,41 @@ function onDocumentMouseDown( e ) {
   var intersects = raycaster.intersectObjects( objects );
 
   if ( intersects.length > 0 ) {
+    // turns itself red
     intersects[ 0 ].object.material.color.setHex( 0xff0f0f );
+    
+    // from the click event you can get:
+    // where the object is positioned when clicked
+    console.log(intersects[0].object.parent.position.y);
+    // where the click itself is positioned
+    console.log(intersects[0].point.y);
+
+    // decide on a max and minimal position
+    //# Z #//
+    var positionZ = intersects[0].object.parent.position.z;
+    var maxPositionZ = positionZ + 30 ;
+    var minPositionZ = positionZ - 30 ;
+    
+    //# Y #//
+    var positionY = intersects[0].object.parent.position.y;
+    var maxPositionY = positionY + 2 ;
+    var minPositionY = positionY - 2 ;
+
+    //# X #//
+    var positionX = intersects[0].object.parent.position.x;
+    var maxPositionX = positionX + 0.01 ;
+    var minPositionX = positionX - 0.01 ;
+            
+    for (var i = 0; i < scene.children.length; i++) {
+      if (scene.children[i].position.z <= maxPositionZ && scene.children[i].position.z >= minPositionZ) {
+        //scene.children[i].children[0].material.color.setHex(0xff0f0f);
+        //console.log(scene.children[i].position.z);
+      }
+      if (scene.children[i].position.y <= maxPositionY && scene.children[i].position.y >= minPositionY) {
+        scene.children[i].children[0].material.color.setHex(0xff0f00);
+        
+      }
+    }
+
   }
 }
