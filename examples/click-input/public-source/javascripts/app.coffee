@@ -2,6 +2,7 @@
 
 `
 //= require vendor/three.js
+//= require vendor/tweenjs.js
 //= require vendor/jquery.js
 //= require vendor/stats.js
 //= require vendor/datgui.js

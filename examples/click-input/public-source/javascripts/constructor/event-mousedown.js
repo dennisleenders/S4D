@@ -22,18 +22,18 @@ function onDocumentMouseDown( e ) {
   if ( intersects.length > 0 ) {
     // turns itself red
     intersects[ 0 ].object.material.color.setHex( 0xff0f0f );
-    
+
     // from the click event you can get:
     // where the object is positioned when clicked
-    console.log(intersects[0].object.parent.position.y);
+      //console.log(intersects[0].object.parent.position.y);
     // where the click itself is positioned
-    console.log(intersects[0].point.y);
+      //console.log(intersects[0].point.y);
 
     // decide on a max and minimal position
     //# Z #//
     var positionZ = intersects[0].object.parent.position.z;
-    var maxPositionZ = positionZ + 30 ;
-    var minPositionZ = positionZ - 30 ;
+    var maxPositionZ = positionZ + 10 ;
+    var minPositionZ = positionZ - 10 ;
     
     //# Y #//
     var positionY = intersects[0].object.parent.position.y;
@@ -46,30 +46,42 @@ function onDocumentMouseDown( e ) {
     var minPositionX = positionX - 5 ;
 
     var timer = 10;
-    var tweenSpeed = 2;
+    var tweenSpeed = 35;
             
     for (var i = 0; i < scene.children.length; i++) {
       if (scene.children[i].position.z <= maxPositionZ && scene.children[i].position.z >= minPositionZ) {
         if (scene.children[i].position.y <= maxPositionY && scene.children[i].position.y >= minPositionY) {
           if (scene.children[i].position.x <= maxPositionX && scene.children[i].position.x >= minPositionX) {
-            //timer = timer + tweenSpeed
-            //doTimeout(i,timer);          
+            console.log(scene.children[i].children[0].material.color);
+            timer = timer + tweenSpeed
+            doFadetoRed(i,timer);          
           }
         }
-      }
-      if (scene.children[i].position.x <= maxPositionX && scene.children[i].position.x >= minPositionX) {
-        timer = timer + tweenSpeed
-        doTimeout(i,timer);
       }
     }
   }
 }
 
-function doTimeout(i,timer){
+function doFadetoRed(i,timer){
   setTimeout(function() {
-    scene.children[i].children[0].material.color.setHex(0xff0f00) 
+    var tween = new TWEEN.Tween(scene.children[i].children[0].material.color)
+    .to({
+      r: 1, 
+      g: 0, 
+      b: 0 }, 400)
+    tween.start();
+
+    doFadetoWhite(i,timer);
+  }, timer);
+}
+
+function doFadetoWhite(i,timer) {
     setTimeout(function() {
-      scene.children[i].children[0].material.color.setHex(0xffffff) 
-    }, 1000);
-  }, timer); 
+    var tween = new TWEEN.Tween(scene.children[i].children[0].material.color)
+    .to({
+      r: 1, 
+      g: 1, 
+      b: 1 }, 400)
+    tween.start();
+  }, 1000);
 }

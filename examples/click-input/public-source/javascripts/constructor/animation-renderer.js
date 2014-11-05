@@ -1,8 +1,8 @@
 
 // initiates the renderer, this renderer will loop every millsecond
-render();
+animate();
 
-function render() {
+function animate() {
     stats.update();
 
     // this will give it a default rotation even if the user declines microphone access
@@ -42,8 +42,13 @@ function render() {
     }else{
       middle.position.y -= 0.005
     }
-
     // render using requestAnimationFrame will cause it to loop the function over and over
-    requestAnimationFrame(render);
+    requestAnimationFrame(animate);
+    render();
+}
+
+function render() {
+
+    TWEEN.update();
     renderer.render(scene, camera);
 }
