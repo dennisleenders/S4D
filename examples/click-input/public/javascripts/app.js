@@ -39368,7 +39368,7 @@ function onDocumentMouseDown( e ) {
 
   if ( intersects.length > 0 ) {
     // turns itself red
-    intersects[ 0 ].object.material.color.setHex( 0xff0f0f );
+    //intersects[ 0 ].object.material.color.setHex( 0xff0f0f );
 
     // from the click event you can get:
     // where the object is positioned when clicked
@@ -39399,9 +39399,8 @@ function onDocumentMouseDown( e ) {
       if (scene.children[i].position.z <= maxPositionZ && scene.children[i].position.z >= minPositionZ) {
         if (scene.children[i].position.y <= maxPositionY && scene.children[i].position.y >= minPositionY) {
           if (scene.children[i].position.x <= maxPositionX && scene.children[i].position.x >= minPositionX) {
-            console.log(scene.children[i].children[0].material.color);
             timer = timer + tweenSpeed
-            doFadetoRed(i,timer);          
+            doFadetoRed(i,timer,intersects[ 0 ].object);          
           }
         }
       }
@@ -39409,7 +39408,9 @@ function onDocumentMouseDown( e ) {
   }
 }
 
-function doFadetoRed(i,timer){
+// does the fade to red
+// also initiates the fade to white after the fade to red
+function doFadetoRed(i,timer,intersection){
   setTimeout(function() {
     var tween = new TWEEN.Tween(scene.children[i].children[0].material.color)
     .to({
@@ -39418,11 +39419,17 @@ function doFadetoRed(i,timer){
       b: 0 }, 400)
     tween.start();
 
-    doFadetoWhite(i,timer);
+    // checks if the child is the clicked child, if so
+    // then don't fade back to white
+    if (scene.children[i].id != intersection.parent.id){
+      doFadetoWhite(i);
+    }
   }, timer);
 }
 
-function doFadetoWhite(i,timer) {
+// will initiate after the fade to red
+// triggers after a set amount of time
+function doFadetoWhite(i) {
     setTimeout(function() {
     var tween = new TWEEN.Tween(scene.children[i].children[0].material.color)
     .to({
@@ -39430,7 +39437,7 @@ function doFadetoWhite(i,timer) {
       g: 1, 
       b: 1 }, 400)
     tween.start();
-  }, 1000);
+  }, 2000);
 }
 
 
