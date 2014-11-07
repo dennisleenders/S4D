@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ThreeJS Diamond</title>
+	<script type="text/javascript" src="libs/three.js"></script>
+	<script type="text/javascript" src="libs/stats.js"></script>
+	<script type="text/javascript" src="libs/dat.gui.js"></script>
+	<script type="text/javascript" src="libs/orbitcontrols.js"></script>
+	<script type="text/javascript" src="libs/jquery-1.11.1.js"></script>
+	<style>
+		body{
+			margin: 0;
+			padding: 0;dff
+			overflow: hidden;
+		}
+	</style>
+</head>	
+<body>
+
+	<div id="stats-output"></div>
+	<div id="webgl-output"></div>
+
+<script>
+
+	function init(){
+	
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+		var renderer = new THREE.WebGLRenderer({
+			scale: 1, antialias: true
+		});
+		renderer.setSize(window.innerWidth, window.innerHeight);
+
+
+        // ## CAMERA ##//
+		camera.position.x = 0;
+		camera.position.y = 4.5;
+		camera.position.z = 30;
+		camera.lookAt(scene.position);
+	
+		document.getElementById('webgl-output').appendChild(renderer.domElement);
+		controls = new THREE.OrbitControls(camera, document, renderer.domElement);
+	
+		//pyramide Top
+		var pyramideTopRadiusTop = 0;
+		var pyramideTopRadiusBottom = 4;
+		var pyramideTopHeight = 8;
+		var pyramideTopRadiusSegments = 4;
+		var pyramideTopRadiusOpenEnded = false;
+
+		var colorHeart = 0xecf0f1;
+		var colorWireframe = 0x000000;
+
+		var pyramideGeometryTop = new THREE.CylinderGeometry(pyramideTopRadiusTop, pyramideTopRadiusBottom, pyramideTopHeight, pyramideTopRadiusSegments, pyramideTopRadiusOpenEnded); 
+
+		var pyramidMaterialTop = new THREE.MeshBasicMaterial({ 
+		    color: colorHeart,
+		    transparent: true
+		}); 
+
+		var pyramidMeshTopWireframe = new THREE.MeshBasicMaterial({ 
+		    color: colorWireframe,
+		    wireframe: true
+		}); 
+
+		var pyramidMeshTop = new THREE.SceneUtils.createMultiMaterialObject(pyramideGeometryTop,[pyramidMeshTopWireframe,pyramidMaterialTop]); 
+		    pyramidMeshTop.position.set(0, 4, 0);
+		    scene.add(pyramidMeshTop); 
+
+
+		//pyramide Bottom
+		var pyramideBottomRadiusTop = 0;
+		var pyramideBottomRadiusBottom = 4;
+		var pyramideBottomHeight = 5;
+		var pyramideBottomRadiusSegments = 4;
+		var pyramideBottomRadiusOpenEnded = false;
+
+		var pyramidGeometryBottom = new THREE.CylinderGeometry(pyramideBottomRadiusTop, pyramideBottomRadiusBottom, pyramideBottomHeight, pyramideBottomRadiusSegments, pyramideBottomRadiusOpenEnded); 
+
+		var pyramidMaterialBottom = new THREE.MeshBasicMaterial({ 
+		    color: colorHeart
+		});
+
+		var pyramidMaterialBottomWireframe = new THREE.MeshBasicMaterial({ 
+		    color: colorWireframe,
+			wireframe: true,
+			wireframeLinewidth: 1
+		});  
+
+		var pyramidMeshBottom = new THREE.SceneUtils.createMultiMaterialObject(pyramidGeometryBottom,[pyramidMaterialBottomWireframe,pyramidMaterialBottom]);
+		    pyramidMeshBottom.position.set(0, -2.5, 0);
+		    pyramidMeshBottom.rotation.x=- 1 * Math.PI;
+		    scene.add(pyramidMeshBottom); 
+
+        var sphereGeometry = new THREE.SphereGeometry(1.5,20,20);
+        var sphereMaterial = new THREE.MeshBasicMaterial({
+        	color: 0xc0392b
+        });
+        var sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
+
+        // position the sphere
+        sphere.position.x=0;
+        sphere.position.y=0;
+        sphere.position.z=0;
+        sphere.castShadow=true;
+
+        // add the sphere to the scene
+        scene.add(sphere);
+
+        var pyramidTopUp = true;
+		var pyramidTopDown = false;
+
+		var pyramidBottomUp = true;
+		var pyramidBottomDown = false;
+
+		var directionSphereUp = true;
+		var directionSphereDown = true;
+
+		var pyramidBeatTopMax = true;
+		var pyramidBeatTopMin = false;
+
+		var beatMax = 0.005;
+		var beatMin = 0.002;
+
+		var heartMaxScale = 1.15;
+		var heartMinScale = 1;
+
+		var audioHeartbeat = new Audio('beat4.m4a');
+		var audioBackground = new Audio('background2.wav');
+		audioBackground.addEventListener('ended', function() {
+		    this.currentTime = 0;
+		    this.play();
+		}, false);
+
+
+		function heartbeat(){
+			if(pyramidMeshTop.scale.x >= heartMaxScale && pyramidMeshTop.scale.z >= heartMaxScale && pyramidBeatTopMax == true){
+		      	pyramidBeatTopMax = false;
+		      	pyramidBeatTopMin = true;
+		      	audioHeartbeat.play()
+		    } else if(pyramidMeshTop.scale.x <= heartMinScale && pyramidMeshTop.scale.z <= heartMinScale && pyramidBeatTopMin == true){
+		      	pyramidBeatTopMax = true;
+		      	pyramidBeatTopMin = false;
+		    }
+
+		    if(pyramidBeatTopMax == true){
+	      	  	pyramidMeshTop.scale.x += beatMax;
+	      	  	pyramidMeshTop.scale.z += beatMax;	
+
+	      	} else{	
+	    		pyramidMeshTop.scale.x -= beatMin;
+	    		pyramidMeshTop.scale.z -= beatMin;
+		    }
+		
+
+			if(pyramidMeshBottom.scale.x >= heartMaxScale && pyramidMeshBottom.scale.z >= heartMaxScale && pyramidBeatTopMax == true){
+		      	pyramidBeatTopMax = false;
+		      	pyramidBeatTopMin = true;
+		    } else if(pyramidMeshBottom.scale.x <= heartMinScale && pyramidMeshBottom.scale.z <= heartMinScale && pyramidBeatTopMin == true){
+		      	pyramidBeatTopMax = true;
+		      	pyramidBeatTopMin = false;
+		    }
+
+		    if(pyramidBeatTopMax == true){
+	      	  	pyramidMeshBottom.scale.x += beatMax;
+	      	  	pyramidMeshBottom.scale.z += beatMax;	
+
+	      	} else{	
+	    		pyramidMeshBottom.scale.x -= beatMin;
+	    		pyramidMeshBottom.scale.z -= beatMin;
+		    }
+		};
+
+		function floatMovementHeart(){
+			
+			if(pyramidMeshTop.position.y >= 4.5 && pyramidTopUp == true){
+		      	pyramidTopUp = false;
+		      	pyramidTopDown = true;
+		    } else if(pyramidMeshTop.position.y <= 4 && pyramidTopDown == true){
+		      	pyramidTopUp = true;
+		      	pyramidTopDown = false;
+		     }	
+
+		    if(pyramidTopUp == true){
+	      		pyramidMeshTop.position.y += 0.0025;
+
+		    } else{
+	    		pyramidMeshTop.position.y -= 0.0025;
+		    }
+
+		    if(pyramidMeshBottom.position.y >= -2.5 && pyramidBottomUp == true){
+		      	pyramidBottomUp = false;
+		      	pyramidBottomDown = true;
+		    } else if(pyramidMeshBottom.position.y <= -3.5 && pyramidBottomDown == true){
+		      	pyramidBottomUp = true;
+		      	pyramidBottomDown = false;
+		     }	
+
+		    if(pyramidBottomUp == true){
+	      		pyramidMeshBottom.position.y += 0.005;
+		    } else{
+		    	pyramidMeshBottom.position.y -= 0.005;
+		    }
+		};
+
+		function heartRotation(){
+			pyramidMeshTop.rotation.y += 0.002;
+			pyramidMeshBottom.rotation.y -= 0.002;
+		}
+
+	render();
+	audioBackground.play();
+
+		function render(){
+
+			heartbeat();
+			floatMovementHeart();
+			heartRotation();
+
+			requestAnimationFrame(render);
+			renderer.render(scene, camera);
+		}
+	};
+
+	window.onload = init
+
+</script>
+
+</body>
+</html>

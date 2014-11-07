@@ -8,14 +8,6 @@
 	<script type="text/javascript" src="libs/dat.gui.js"></script>
 	<script type="text/javascript" src="libs/orbitcontrols.js"></script>
 	<script type="text/javascript" src="libs/jquery-1.11.1.js"></script>
-	<script type="text/javascript" src="libs/WebGLDeferredRenderer.js"></script>
-    <script type="text/javascript" src="libs/ShaderDeferred.js"></script>
-    <script type="text/javascript" src="libs/RenderPass.js"></script>
-    <script type="text/javascript" src="libs/EffectComposer.js"></script>
-    <script type="text/javascript" src="libs/CopyShader.js"></script>
-    <script type="text/javascript" src="libs/ShaderPass.js"></script>
-    <script type="text/javascript" src="libs/FXAAShader.js"></script>
-    <script type="text/javascript" src="libs/MaskPass.js"></script>
 	<style>
 		body{
 			margin: 0;
@@ -25,8 +17,10 @@
 	</style>
 </head>	
 <body>
+	<button onclick="heartbeat()">BEAT</button>
 	<div id="stats-output"></div>
 	<div id="webgl-output"></div>
+
 <script>
 
 	function init(){
@@ -157,7 +151,7 @@
 		//////////////////////////PYRAMIDE LINKS//////////////////////////
 
 		//PYRAMIDE-TOP
-		var pyramideGeometryTop3 = new THREE.CylinderGeometry(0, 4.8, 8, 4, false); 
+		var pyramideGeometryTop3 = new THREE.CylinderGeometry(0, 4, 8, 4, false); 
 
 		var pyramidMaterialTop3 = new THREE.MeshBasicMaterial({ 
 		    color: 0xFFFFFF,
@@ -168,7 +162,7 @@
 		var pyramidMeshTop3Wireframe = new THREE.MeshBasicMaterial({ 
 		    color: 0x000000,
 		    wireframe: true,
-		    wireframeLinewidth: 3
+		    wireframeLinewidth: 1
 		}); 
 
 		var pyramidMeshTop3 = new THREE.SceneUtils.createMultiMaterialObject(pyramideGeometryTop3,[pyramidMeshTop3Wireframe,pyramidMeshTop3]); 
@@ -176,7 +170,7 @@
 		    scene.add(pyramidMeshTop3); 
 
 		//PYRAMIDE-BOTTOM
-		var pyramidGeometryBottom3 = new THREE.CylinderGeometry(0, 4.8, 5, 4, false); 
+		var pyramidGeometryBottom3 = new THREE.CylinderGeometry(0, 4, 5, 4, false); 
 
 		var pyramidMaterialBottom3 = new THREE.MeshLambertMaterial({ 
 		    color: 0xFFFFFF,
@@ -187,7 +181,7 @@
 		    color: 0xFFFFFF,
 		    opacity: 1,
 			wireframe: true,
-			wireframeLinewidth: 3
+			wireframeLinewidth: 1
 		});  
 
 		var pyramidMeshBottom3 = new THREE.SceneUtils.createMultiMaterialObject(pyramidGeometryBottom3,[pyramidMaterialBottom3Wireframe,pyramidMeshBottom3]);
@@ -195,10 +189,9 @@
 		    pyramidMeshBottom3.rotation.x=- 1 * Math.PI;
 		    scene.add(pyramidMeshBottom3); 
 
-        var sphereGeometry = new THREE.SphereGeometry(2,20,20);
+        var sphereGeometry = new THREE.SphereGeometry(1.5,20,20);
         var sphereMaterial = new THREE.MeshBasicMaterial({
-        	color: 0xFF0000,
-        	wireframe: true,
+        	color: 0xFF0000
         });
         var sphere3 = new THREE.Mesh(sphereGeometry,sphereMaterial);
 
@@ -229,71 +222,88 @@
 		var pyramidBeatTopMax = true;
 		var pyramidBeatTopMin = false;
 		
-		count = 0;
+		var count = 0;
+
+		var beatMax = 0.01;
+		var beatMin = 0.002;
+
+		var audio = new Audio('beats.m4a');
+
+
+		function heartbeat(){
+		// 	if(pyramidMeshTop1.scale.x >= 1.15 && pyramidMeshTop1.scale.z >= 1.15 && pyramidBeatTopMax == true){
+		//       pyramidBeatTopMax = false;
+		//       pyramidBeatTopMin = true;
+		//       console.log(count)
+		//       count++;
+		//     }else if(pyramidMeshTop1.scale.x <= 1.05 && pyramidMeshTop1.scale.z <= 1 && pyramidBeatTopMin == true){
+		//       pyramidBeatTopMax = true;
+		//       pyramidBeatTopMin = false;
+		//     }else if(pyramidMeshTop1.scale.x <= 1.05 && pyramidMeshTop1.scale.z <= 1 && pyramidBeatTopMin == true && count == 2){
+		//       pyramidBeatTopMax = true;
+		//       pyramidBeatTopMin = false;
+		//     }	
+
+
+		//     if(pyramidBeatTopMax == true && count < 2){
+
+	 //      		pyramidMeshTop1.scale.x += 0.04;
+	 //      		pyramidMeshTop1.scale.z += 0.04;	
+
+		//     } else if(pyramidBeatTopMax == true && count == 2){
+		//     	count++;
+		//     	pyramidMeshTop1.position.x = 0.0001;
+	 //      		pyramidMeshTop1.position.z = 0.0001;
+	 //      		count++;
+
+	 //      	} else if ( pyramidBeatTopMax == false){	
+	 //    		pyramidMeshTop1.scale.x -= 0.01;
+	 //    		pyramidMeshTop1.scale.z -= 0.01;
+		//     }
+		// }
+
+		if(pyramidMeshTop3.scale.x >= 1.15 && pyramidMeshTop3.scale.z >= 1.15 && pyramidBeatTopMax == true){
+		      pyramidBeatTopMax = false;
+		      pyramidBeatTopMin = true;
+		      audio.play()
+		    }else if(pyramidMeshTop3.scale.x <= 1.05 && pyramidMeshTop3.scale.z <= 1 && pyramidBeatTopMin == true){
+		      pyramidBeatTopMax = true;
+		      pyramidBeatTopMin = false;
+		    }
+
+		    if(pyramidBeatTopMax == true){
+	      	  pyramidMeshTop3.scale.x += beatMax;
+	      	  pyramidMeshTop3.scale.z += beatMax;	
+
+	      	} else{	
+	    		pyramidMeshTop3.scale.x -= beatMin;
+	    		pyramidMeshTop3.scale.z -= beatMin;
+		    }
+		
+
+		if(pyramidMeshBottom3.scale.x >= 1.15 && pyramidMeshBottom3.scale.z >= 1.15 && pyramidBeatTopMax == true){
+		      pyramidBeatTopMax = false;
+		      pyramidBeatTopMin = true;
+		    }else if(pyramidMeshBottom3.scale.x <= 1.05 && pyramidMeshBottom3.scale.z <= 1 && pyramidBeatTopMin == true){
+		      pyramidBeatTopMax = true;
+		      pyramidBeatTopMin = false;
+		    }
+
+		    if(pyramidBeatTopMax == true){
+	      	  pyramidMeshBottom3.scale.x += beatMax;
+	      	  pyramidMeshBottom3.scale.z += beatMax;	
+
+	      	} else{	
+	    		pyramidMeshBottom3.scale.x -= beatMin;
+	    		pyramidMeshBottom3.scale.z -= beatMin;
+		    }
+		}
 
 	render();
 
 		function render(){
 
-			if(pyramidMeshTop1.scale.x >= 1.2 && pyramidMeshTop1.scale.z >= 1.2 && pyramidBeatTopMax == true){
-		      pyramidBeatTopMax = false;
-		      pyramidBeatTopMin = true;
-		      count++;
-		      console.log(count)
-		      // count++;
-		      // 	if(count == 2){
-		      // 		pyramidMeshTop1.scale.x += 0.02;
-		      // 		pyramidMeshTop1.scale.z += 0.02;
-		      // 		console.log("YO");
-		      // 	} else if(count == 5){
-		      // 		pyramidMeshTop1.scale.x += 0.005;
-		      // 		pyramidMeshTop1.scale.z += 0.005;
-		      // 		count = 0;
-		      // 	} else {
-		      // 		pyramidMeshTop1.scale.x -= 0.002;
-		      // 		pyramidMeshTop1.scale.z -= 0.002;
-		      // 		console.log("Checkkkk");
-		      // 		console.log(pyramidMeshTop1.scale.x);
-		      // 	}
-
-		    }else if(pyramidMeshTop1.scale.x <= 1.05 && pyramidMeshTop1.scale.z <= 1 && pyramidBeatTopMin == true){
-		      pyramidBeatTopMax = true;
-		      pyramidBeatTopMin = false;
-		     }	
-
-		    if(pyramidBeatTopMax == true && count < 2){
-	      		pyramidMeshTop1.scale.x += 0.02;
-	      		// pyramidMeshTop1.scale.y += 0.05;
-	      		pyramidMeshTop1.scale.z += 0.02;	
-		    } else if(pyramidBeatTopMax == true && count == 2){
-		    	pyramidMeshTop1.position.x = 1;
-	      		// pyramidMeshTop1.scale.y += 0.05;
-	      		pyramidMeshTop1.position.z = 1;
-	      		console.log("check!");
-	      		count++;
-	      			if(count == 3 ){
-	      				count++;
-	      			} else if (count == 5){
-	      				count = 0;
-	      			}
-	      	} else{	
-	    		pyramidMeshTop1.scale.x -= 0.003;
-	    		// pyramidMeshTop1.scale.y -= 0.005;
-	    		pyramidMeshTop1.scale.z -= 0.003;
-		    }
-
-
-
-
-
-
-
-
-
-
-
-
-
+			heartbeat();
 			//pyramide 1
             pyramidMeshBottom1.rotation.y += -0.005;
             pyramidMeshTop1.rotation.y += 0.005;
