@@ -9,7 +9,7 @@ var scene = new THREE.Scene();
 //scene.overrideMaterial = new THREE.MeshDepthMaterial({wireframe:false});
 
 // create a camera, which defines where we're looking at.
-var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 10, 148);
+var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 10, 148); // 10 148
 
 // create a render and set the size
 var renderer = new THREE.WebGLRenderer();
@@ -22,9 +22,9 @@ renderer.shadowMapEnabled = true;
 raycaster = new THREE.Raycaster();
 
 // position and point the camera to the center of the scene
-camera.position.x = 0; //-50
-camera.position.y = 10; //40
-camera.position.z = 74; // 50
+camera.position.x = 0; //0
+camera.position.y = 10; //10
+camera.position.z = 74; // 74
 //camera.lookAt(scene.position);
 
 // add the output of the renderer to the html element

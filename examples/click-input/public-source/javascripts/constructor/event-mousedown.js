@@ -21,7 +21,7 @@ function onDocumentMouseDown( e ) {
 
   if ( intersects.length > 0 ) {
     // turns itself red
-    //intersects[ 0 ].object.material.color.setHex( 0xff0f0f );
+    intersects[ 0 ].object.material.color.setHex( 0xff0f0f );
 
     // from the click event you can get:
     // where the object is positioned when clicked

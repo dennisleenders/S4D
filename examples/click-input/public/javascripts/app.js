@@ -39271,7 +39271,7 @@ var scene = new THREE.Scene();
 //scene.overrideMaterial = new THREE.MeshDepthMaterial({wireframe:false});
 
 // create a camera, which defines where we're looking at.
-var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 10, 148);
+var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 10, 148); // 10 148
 
 // create a render and set the size
 var renderer = new THREE.WebGLRenderer();
@@ -39284,9 +39284,9 @@ renderer.shadowMapEnabled = true;
 raycaster = new THREE.Raycaster();
 
 // position and point the camera to the center of the scene
-camera.position.x = 0; //-50
-camera.position.y = 10; //40
-camera.position.z = 74; // 50
+camera.position.x = 0; //0
+camera.position.y = 10; //10
+camera.position.z = 74; // 74
 //camera.lookAt(scene.position);
 
 // add the output of the renderer to the html element
@@ -39313,9 +39313,9 @@ for (var i = 0; i < 1000; i++) {
     var triangle = new THREE.SceneUtils.createMultiMaterialObject(triangleGeometry,[triangleMaterial,triangleMaterialWireframe,triangleMaterialDepth]);
 
     // position the triangle randomly in the scene
-    triangle.position.x = -60 + Math.round((Math.random() * 100));
+    triangle.position.x = -60 + Math.round((Math.random() * 100)); // -60
     triangle.position.y = Math.round((Math.random() * 10));
-    triangle.position.z = -100 + Math.round((Math.random() * 150));
+    triangle.position.z = -100 + Math.round((Math.random() * 150)); // -100
 
     // anti-artifacts, will counter tripping materials overlapping eachother
     triangle.children[1].scale.set(1.01,1.01,1.01)
@@ -39368,7 +39368,7 @@ function onDocumentMouseDown( e ) {
 
   if ( intersects.length > 0 ) {
     // turns itself red
-    //intersects[ 0 ].object.material.color.setHex( 0xff0f0f );
+    intersects[ 0 ].object.material.color.setHex( 0xff0f0f );
 
     // from the click event you can get:
     // where the object is positioned when clicked
@@ -39512,19 +39512,20 @@ gui.add(controls, 'cameraZ', 0, 200).onChange(function (e) {
 
 // initiates the renderer, this renderer will loop every millsecond
 animate();
+var timer = 0;
+var centerX = 1;
 
-function animate() {
+function animate(time) {
     stats.update();
 
     // this will give it a default rotation even if the user declines microphone access
     if(speed != NaN && speed != undefined){
       rotationSpeed = speed + 0.01
     }
-    
+
     // rotate the triangles around its axes except the heart
     scene.traverse(function (e) {
         if (e instanceof THREE.Mesh && e.name != "middle") {
-
             // if set to controls.speed it WILL spawn the blocks.
             // voice speed will not spawn the blocks.
             e.rotation.x += rotationSpeed;
@@ -39533,6 +39534,13 @@ function animate() {
 
             e.position.x += 0.01;
 
+            //e.position.x = (e.parent.position.x) * Math.cos(time/1000)
+            //e.position.z = (e.parent.position.z) * Math.sin(time/1000)
+
+            //if (timer >= 1){
+            //  console.log(e.position.x);
+            //}
+            //timer++
         }
     });
 
