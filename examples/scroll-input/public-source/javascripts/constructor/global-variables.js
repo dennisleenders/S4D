@@ -8,6 +8,7 @@ var directionHeartDown = false;
 var isScroll = false;
 var scrollSpeed;
 var checkScroll;
+var triangleFloatLeft = true;
 
 // Will hold all the multiple material objects for click events
 // WE only need this because we have multiple material objects, else we could use
