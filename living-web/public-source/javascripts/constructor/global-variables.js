@@ -26,6 +26,13 @@ var heartbeatDecrement = 0.002;
 var heartMaxScale = 1.15;
 var heartMinScale = 1;
 
+// Pyramid position
+var pyramidPositionY = 25;
+var pyramidBottomPositionY = pyramidPositionY - 6.5;
+var pyramidSpherePositionY = pyramidPositionY - 4;
+var pyramidPositionZ = -35;
+
+
 // Will hold all the multiple material objects for click events
 // WE only need this because we have multiple material objects, else we could use
 // scene.childerns array

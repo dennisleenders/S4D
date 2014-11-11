@@ -39245,6 +39245,13 @@ var heartbeatDecrement = 0.002;
 var heartMaxScale = 1.15;
 var heartMinScale = 1;
 
+// Pyramid position
+var pyramidPositionY = 25;
+var pyramidBottomPositionY = pyramidPositionY - 6.5;
+var pyramidSpherePositionY = pyramidPositionY - 4;
+var pyramidPositionZ = -35;
+
+
 // Will hold all the multiple material objects for click events
 // WE only need this because we have multiple material objects, else we could use
 // scene.childerns array
@@ -39350,6 +39357,9 @@ for (var i = 0; i < 1000; i++) {
 };
 
 
+
+// Pyramide variables
+// Geometry
 var pyramideRadiusTop = 0;
 var pyramideRadiusBottom = 4;
 var pyramideRadiusSegments = 4;
@@ -39358,11 +39368,11 @@ var pyramideRadiusOpenEnded = false;
 var pyramideTopHeight = 8;
 var pyramideBottomHeight = 5;
 
+// Color
 var colorHeart = 0xecf0f1;
 var colorWireframe = 0x000000;
 
-
-//Pyramide Spawn
+// Pyramide Spawn
   // Top 
   var pyramideGeometryTop = new THREE.CylinderGeometry(pyramideRadiusTop, pyramideRadiusBottom, pyramideTopHeight, pyramideRadiusSegments, pyramideRadiusOpenEnded); 
   var pyramidMaterialTop = new THREE.MeshBasicMaterial({ color: colorHeart,transparent: true}); 
@@ -39371,8 +39381,9 @@ var colorWireframe = 0x000000;
   var pyramidMeshTop = new THREE.SceneUtils.createMultiMaterialObject(pyramideGeometryTop,[pyramidMeshTopWireframe,pyramidMaterialTop]); 
 
   // setting top position of the pyramid
-  pyramidMeshTop.position.set(0, 4, 0);
-  pyramidMeshTop.name = "pyramid";
+  pyramidMeshTop.position.set(0, pyramidPositionY, pyramidPositionZ);
+  pyramidMeshTop.children[0].name = "pyramid";
+  pyramidMeshTop.children[1].name = "pyramid";
   scene.add(pyramidMeshTop);
 
   // Bottom 
@@ -39383,9 +39394,10 @@ var colorWireframe = 0x000000;
   var pyramidMeshBottom = new THREE.SceneUtils.createMultiMaterialObject(pyramidGeometryBottom,[pyramidMaterialBottomWireframe,pyramidMaterialBottom]);
   
   // setting bottom position of the pyramid, and inverted position with rotation
-  pyramidMeshBottom.position.set(0, -2.5, 0);
+  pyramidMeshBottom.position.set(0, pyramidBottomPositionY, pyramidPositionZ);
   pyramidMeshBottom.rotation.x=- 1 * Math.PI;
-  pyramidMeshBottom.name = "pyramid";
+  pyramidMeshBottom.children[0].name = "pyramid";
+  pyramidMeshBottom.children[1].name = "pyramid";
   scene.add(pyramidMeshBottom);
 
 // Sphere inside pyramide
@@ -39394,38 +39406,27 @@ var sphereMaterial = new THREE.MeshBasicMaterial({color: 0xc0392b});
 var sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
 
 // position the sphere
-sphere.position.x=0;
-sphere.position.y=0;
-sphere.position.z=0;
+sphere.position.x= 0;
+sphere.position.y= pyramidSpherePositionY;
+sphere.position.z= pyramidPositionZ;
+
+// name of sphere
+sphere.name = "pyramid";
 
 // add the sphere to the scene
 scene.add(sphere);
 
 
 
-// sphere spawn, this sphere will stay in the middle and hover
-var middleGeometry = new THREE.SphereGeometry(5,32,32);
-var middleMaterial = new THREE.MeshBasicMaterial({color: Math.random() * 0xffffff });
-var middle = new THREE.Mesh(middleGeometry, middleMaterial);
-middle.castShadow = true;
-middle.name = "middle";
-
-// position the cube randomly in the scene
-middle.position.x = 30;
-middle.position.y = 17;
-middle.position.z = 30;
-scene.add(middle);      
-
-
 
 // This will set all audio on the website
 
 // heartbeat audio
-var audioHeartbeat = new Audio('../media/sounds/beat.m4a');
+var audioHeartbeat = new Audio('public/media/sounds/beat.m4a');
 audioHeartbeat.volume = 0.2;
 
 // background audio
-var audioBackground = new Audio('../media/sounds/background.mp3');
+var audioBackground = new Audio('public/media/sounds/background.mp3');
 audioBackground.volume = 0.4;
 audioBackground.addEventListener('ended', function() {
     this.currentTime = 0;
@@ -39475,10 +39476,10 @@ function heartbeat(){
 // floating of the heart
 function floatMovementHeart(){
   
-  if(pyramidMeshTop.position.y >= 4.5 && pyramidTopUp == true){
+  if(pyramidMeshTop.position.y >= (pyramidPositionY + 0.5) && pyramidTopUp == true){
         pyramidTopUp = false;
         pyramidTopDown = true;
-    } else if(pyramidMeshTop.position.y <= 4 && pyramidTopDown == true){
+    } else if(pyramidMeshTop.position.y <= pyramidPositionY && pyramidTopDown == true){
         pyramidTopUp = true;
         pyramidTopDown = false;
      }  
@@ -39490,10 +39491,10 @@ function floatMovementHeart(){
       pyramidMeshTop.position.y -= 0.0025;
     }
 
-    if(pyramidMeshBottom.position.y >= -2.5 && pyramidBottomUp == true){
+    if(pyramidMeshBottom.position.y >= pyramidBottomPositionY && pyramidBottomUp == true){
         pyramidBottomUp = false;
         pyramidBottomDown = true;
-    } else if(pyramidMeshBottom.position.y <= -3.5 && pyramidBottomDown == true){
+    } else if(pyramidMeshBottom.position.y <= (pyramidBottomPositionY - 1) && pyramidBottomDown == true){
         pyramidBottomUp = true;
         pyramidBottomDown = false;
      }  
@@ -39649,60 +39650,60 @@ function stopScroll(){
 }
 
 
-// var controls = new function () {
-//     this.cameraNear = camera.near;
-//     this.cameraFar = camera.far;
-//     this.cameraX = camera.position.x;
-//     this.cameraZ = camera.position.z;
-//     this.cameraY = camera.position.y;
+var controls = new function () {
+    this.cameraNear = camera.near;
+    this.cameraFar = camera.far;
+    this.cameraX = camera.position.x;
+    this.cameraZ = camera.position.z;
+    this.cameraY = camera.position.y;
 
-//     this.removeCube = function () {
-//         var allChildren = scene.children;
-//         var lastObject = allChildren[allChildren.length - 1];
-//         if (lastObject instanceof THREE.Mesh) {
-//             scene.remove(lastObject);
-//         }
-//     }
+    this.removeCube = function () {
+        var allChildren = scene.children;
+        var lastObject = allChildren[allChildren.length - 1];
+        if (lastObject instanceof THREE.Mesh) {
+            scene.remove(lastObject);
+        }
+    }
 
-//     this.addTriangle = function () {
-//         var cubeSize = Math.random();
-//         var cubeGeometry = new THREE.TetrahedronGeometry(cubeSize,0);
-//         var cubeMaterial = new THREE.MeshLambertMaterial({color: Math.random() * 0xffffff });
-//         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-//         cube.castShadow = true;
+    this.addTriangle = function () {
+        var cubeSize = Math.random();
+        var cubeGeometry = new THREE.TetrahedronGeometry(cubeSize,0);
+        var cubeMaterial = new THREE.MeshLambertMaterial({color: Math.random() * 0xffffff });
+        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cube.castShadow = true;
 
-//         // position the cube randomly in the scene
-//         cube.position.x = -60 + Math.round((Math.random() * 100));
-//         cube.position.y = Math.round((Math.random() * 10));
-//         cube.position.z = -100 + Math.round((Math.random() * 150));
+        // position the cube randomly in the scene
+        cube.position.x = -60 + Math.round((Math.random() * 100));
+        cube.position.y = Math.round((Math.random() * 10));
+        cube.position.z = -100 + Math.round((Math.random() * 150));
 
-//         // add the cube to the scene
-//         scene.add(cube);
-//     };
+        // add the cube to the scene
+        scene.add(cube);
+    };
 
-//     this.outputObjects = function () {
-//         console.log(scene.children);
-//     }
-// }
+    this.outputObjects = function () {
+        console.log(scene.children);
+    }
+}
 
-// var gui = new dat.GUI();
-// gui.add(controls, 'addTriangle');
-// gui.add(controls, 'removeCube');
-// gui.add(controls, 'cameraNear', 0, 50).onChange(function (e) {
-//     camera.near = e;
-// });
-// gui.add(controls, 'cameraFar', 50, 200).onChange(function (e) {
-//     camera.far = e;
-// });
-// gui.add(controls, 'cameraX', 0, 200).onChange(function (e) {
-//     camera.position.x = e;
-// });
-// gui.add(controls, 'cameraY', 0, 200).onChange(function (e) {
-//     camera.position.y = e;
-// });
-// gui.add(controls, 'cameraZ', 0, 200).onChange(function (e) {
-//     camera.position.z = e;
-// });
+var gui = new dat.GUI();
+gui.add(controls, 'addTriangle');
+gui.add(controls, 'removeCube');
+gui.add(controls, 'cameraNear', 0, 50).onChange(function (e) {
+    camera.near = e;
+});
+gui.add(controls, 'cameraFar', 50, 200).onChange(function (e) {
+    camera.far = e;
+});
+gui.add(controls, 'cameraX', 0, 200).onChange(function (e) {
+    camera.position.x = e;
+});
+gui.add(controls, 'cameraY', 0, 200).onChange(function (e) {
+    camera.position.y = e;
+});
+gui.add(controls, 'cameraZ', 0, 200).onChange(function (e) {
+    camera.position.z = e;
+});
 
 
 
@@ -39733,7 +39734,7 @@ function animate(time) {
 
     // check if there is a scroll event going on
      if(isScroll){
-        if((camera.position.z >= 70 && scrollSpeed > 0) || (camera.position.z <= -35 && scrollSpeed < 0)){
+        if((camera.position.z >= 70 && scrollSpeed > 0) || (camera.position.z <= 13.4 && scrollSpeed < 0)){
         }else {
             camera.position.z = camera.position.z + scrollSpeed
         }
@@ -39742,6 +39743,7 @@ function animate(time) {
     // rotate the triangles around its axes except the heart
     scene.traverse(function (e) {
         if (e instanceof THREE.Mesh && e.name != "pyramid") {
+
             // if set to controls.speed it WILL spawn the blocks.
             // voice speed will not spawn the blocks.
             e.rotation.x += rotationSpeed;

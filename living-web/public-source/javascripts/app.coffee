@@ -13,7 +13,6 @@
 //= require constructor/scene-init.js
 //= require constructor/triangle.js
 //= require constructor/pyramid.js
-//= require constructor/sphere.js
 
 //= require constructor/audio.js
 //= require constructor/heart-beat.js

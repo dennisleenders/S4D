@@ -26,7 +26,7 @@ function animate(time) {
 
     // check if there is a scroll event going on
      if(isScroll){
-        if((camera.position.z >= 70 && scrollSpeed > 0) || (camera.position.z <= -35 && scrollSpeed < 0)){
+        if((camera.position.z >= 70 && scrollSpeed > 0) || (camera.position.z <= 13.4 && scrollSpeed < 0)){
         }else {
             camera.position.z = camera.position.z + scrollSpeed
         }
@@ -35,6 +35,7 @@ function animate(time) {
     // rotate the triangles around its axes except the heart
     scene.traverse(function (e) {
         if (e instanceof THREE.Mesh && e.name != "pyramid") {
+
             // if set to controls.speed it WILL spawn the blocks.
             // voice speed will not spawn the blocks.
             e.rotation.x += rotationSpeed;

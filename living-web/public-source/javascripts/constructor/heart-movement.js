@@ -2,10 +2,10 @@
 // floating of the heart
 function floatMovementHeart(){
   
-  if(pyramidMeshTop.position.y >= 4.5 && pyramidTopUp == true){
+  if(pyramidMeshTop.position.y >= (pyramidPositionY + 0.5) && pyramidTopUp == true){
         pyramidTopUp = false;
         pyramidTopDown = true;
-    } else if(pyramidMeshTop.position.y <= 4 && pyramidTopDown == true){
+    } else if(pyramidMeshTop.position.y <= pyramidPositionY && pyramidTopDown == true){
         pyramidTopUp = true;
         pyramidTopDown = false;
      }  
@@ -17,10 +17,10 @@ function floatMovementHeart(){
       pyramidMeshTop.position.y -= 0.0025;
     }
 
-    if(pyramidMeshBottom.position.y >= -2.5 && pyramidBottomUp == true){
+    if(pyramidMeshBottom.position.y >= pyramidBottomPositionY && pyramidBottomUp == true){
         pyramidBottomUp = false;
         pyramidBottomDown = true;
-    } else if(pyramidMeshBottom.position.y <= -3.5 && pyramidBottomDown == true){
+    } else if(pyramidMeshBottom.position.y <= (pyramidBottomPositionY - 1) && pyramidBottomDown == true){
         pyramidBottomUp = true;
         pyramidBottomDown = false;
      }  
