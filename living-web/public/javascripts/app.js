@@ -39229,6 +39229,22 @@ var scrollSpeed;
 var checkScroll;
 var triangleFloatLeft = true;
 
+// Pyramid motion variables
+var pyramidTopUp = true;
+var pyramidTopDown = false;
+
+var pyramidBottomUp = true;
+var pyramidBottomDown = false;
+
+var pyramidBeatTopMax = true;
+var pyramidBeatTopMin = false;
+
+var heartbeatIncrement = 0.005;
+var heartbeatDecrement = 0.002;
+
+var heartMaxScale = 1.15;
+var heartMinScale = 1;
+
 // Will hold all the multiple material objects for click events
 // WE only need this because we have multiple material objects, else we could use
 // scene.childerns array
@@ -39334,6 +39350,58 @@ for (var i = 0; i < 1000; i++) {
 };
 
 
+var pyramideRadiusTop = 0;
+var pyramideRadiusBottom = 4;
+var pyramideRadiusSegments = 4;
+var pyramideRadiusOpenEnded = false;
+
+var pyramideTopHeight = 8;
+var pyramideBottomHeight = 5;
+
+var colorHeart = 0xecf0f1;
+var colorWireframe = 0x000000;
+
+
+//Pyramide Spawn
+  // Top 
+  var pyramideGeometryTop = new THREE.CylinderGeometry(pyramideRadiusTop, pyramideRadiusBottom, pyramideTopHeight, pyramideRadiusSegments, pyramideRadiusOpenEnded); 
+  var pyramidMaterialTop = new THREE.MeshBasicMaterial({ color: colorHeart,transparent: true}); 
+  var pyramidMeshTopWireframe = new THREE.MeshBasicMaterial({ color: colorWireframe,wireframe: true}); 
+
+  var pyramidMeshTop = new THREE.SceneUtils.createMultiMaterialObject(pyramideGeometryTop,[pyramidMeshTopWireframe,pyramidMaterialTop]); 
+
+  // setting top position of the pyramid
+  pyramidMeshTop.position.set(0, 4, 0);
+  pyramidMeshTop.name = "pyramid";
+  scene.add(pyramidMeshTop);
+
+  // Bottom 
+  var pyramidGeometryBottom = new THREE.CylinderGeometry(pyramideRadiusTop, pyramideRadiusBottom, pyramideBottomHeight, pyramideRadiusSegments, pyramideRadiusOpenEnded); 
+  var pyramidMaterialBottom = new THREE.MeshBasicMaterial({ color: colorHeart});
+  var pyramidMaterialBottomWireframe = new THREE.MeshBasicMaterial({ color: colorWireframe,wireframe: true,wireframeLinewidth: 1});  
+
+  var pyramidMeshBottom = new THREE.SceneUtils.createMultiMaterialObject(pyramidGeometryBottom,[pyramidMaterialBottomWireframe,pyramidMaterialBottom]);
+  
+  // setting bottom position of the pyramid, and inverted position with rotation
+  pyramidMeshBottom.position.set(0, -2.5, 0);
+  pyramidMeshBottom.rotation.x=- 1 * Math.PI;
+  pyramidMeshBottom.name = "pyramid";
+  scene.add(pyramidMeshBottom);
+
+// Sphere inside pyramide
+var sphereGeometry = new THREE.SphereGeometry(1.5,20,20);
+var sphereMaterial = new THREE.MeshBasicMaterial({color: 0xc0392b});
+var sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
+
+// position the sphere
+sphere.position.x=0;
+sphere.position.y=0;
+sphere.position.z=0;
+
+// add the sphere to the scene
+scene.add(sphere);
+
+
 
 // sphere spawn, this sphere will stay in the middle and hover
 var middleGeometry = new THREE.SphereGeometry(5,32,32);
@@ -39343,11 +39411,105 @@ middle.castShadow = true;
 middle.name = "middle";
 
 // position the cube randomly in the scene
-middle.position.x = 0;
+middle.position.x = 30;
 middle.position.y = 17;
 middle.position.z = 30;
 scene.add(middle);      
 
+
+
+// This will set all audio on the website
+
+// heartbeat audio
+var audioHeartbeat = new Audio('../media/sounds/beat.m4a');
+audioHeartbeat.volume = 0.2;
+
+// background audio
+var audioBackground = new Audio('../media/sounds/background.mp3');
+audioBackground.volume = 0.4;
+audioBackground.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
+
+
+// the heartbeat function
+function heartbeat(){
+  if(pyramidMeshTop.scale.x >= heartMaxScale && pyramidMeshTop.scale.z >= heartMaxScale && pyramidBeatTopMax == true){
+        pyramidBeatTopMax = false;
+        pyramidBeatTopMin = true;
+        audioHeartbeat.play()
+    } else if(pyramidMeshTop.scale.x <= heartMinScale && pyramidMeshTop.scale.z <= heartMinScale && pyramidBeatTopMin == true){
+        pyramidBeatTopMax = true;
+        pyramidBeatTopMin = false;
+    }
+
+    if(pyramidBeatTopMax == true){
+          pyramidMeshTop.scale.x += heartbeatIncrement;
+          pyramidMeshTop.scale.z += heartbeatIncrement; 
+
+      } else{ 
+      pyramidMeshTop.scale.x -= heartbeatDecrement;
+      pyramidMeshTop.scale.z -= heartbeatDecrement;
+    }
+
+  if(pyramidMeshBottom.scale.x >= heartMaxScale && pyramidMeshBottom.scale.z >= heartMaxScale && pyramidBeatTopMax == true){
+        pyramidBeatTopMax = false;
+        pyramidBeatTopMin = true;
+    } else if(pyramidMeshBottom.scale.x <= heartMinScale && pyramidMeshBottom.scale.z <= heartMinScale && pyramidBeatTopMin == true){
+        pyramidBeatTopMax = true;
+        pyramidBeatTopMin = false;
+    }
+
+    if(pyramidBeatTopMax == true){
+          pyramidMeshBottom.scale.x += heartbeatIncrement;
+          pyramidMeshBottom.scale.z += heartbeatIncrement;  
+
+      } else{ 
+      pyramidMeshBottom.scale.x -= heartbeatDecrement;
+      pyramidMeshBottom.scale.z -= heartbeatDecrement;
+    }
+};
+
+
+// floating of the heart
+function floatMovementHeart(){
+  
+  if(pyramidMeshTop.position.y >= 4.5 && pyramidTopUp == true){
+        pyramidTopUp = false;
+        pyramidTopDown = true;
+    } else if(pyramidMeshTop.position.y <= 4 && pyramidTopDown == true){
+        pyramidTopUp = true;
+        pyramidTopDown = false;
+     }  
+
+    if(pyramidTopUp == true){
+        pyramidMeshTop.position.y += 0.0025;
+
+    } else{
+      pyramidMeshTop.position.y -= 0.0025;
+    }
+
+    if(pyramidMeshBottom.position.y >= -2.5 && pyramidBottomUp == true){
+        pyramidBottomUp = false;
+        pyramidBottomDown = true;
+    } else if(pyramidMeshBottom.position.y <= -3.5 && pyramidBottomDown == true){
+        pyramidBottomUp = true;
+        pyramidBottomDown = false;
+     }  
+
+    if(pyramidBottomUp == true){
+        pyramidMeshBottom.position.y += 0.005;
+    } else{
+      pyramidMeshBottom.position.y -= 0.005;
+    }
+};
+
+// rotation of the heart
+function heartRotation(){
+  pyramidMeshTop.rotation.y += 0.002;
+  pyramidMeshBottom.rotation.y -= 0.002;
+}
 
 
 // adds a listener for the mouse event
@@ -39546,6 +39708,7 @@ function stopScroll(){
 
 // initiates the renderer, this renderer will loop every millsecond
 animate();
+audioBackground.play();
 
 // this interval will set the float direction of the triangles
 setInterval(setTriangleDirection,50000)
@@ -39578,7 +39741,7 @@ function animate(time) {
 
     // rotate the triangles around its axes except the heart
     scene.traverse(function (e) {
-        if (e instanceof THREE.Mesh && e.name != "middle") {
+        if (e instanceof THREE.Mesh && e.name != "pyramid") {
             // if set to controls.speed it WILL spawn the blocks.
             // voice speed will not spawn the blocks.
             e.rotation.x += rotationSpeed;
@@ -39593,23 +39756,11 @@ function animate(time) {
         }
     });
 
-    // hovering of the heart
-    // checks if the position is higher or lower than set value
-    // will change direction if its higher than 18 or lower than 17
-    if(middle.position.y >= 18 && directionHeartUp == true){
-      directionHeartUp = false;
-      directionHeartDown = true;
-    }else if(middle.position.y <= 17 && directionHeartDown == true){
-      directionHeartUp = true;
-      directionHeartDown = false;
-    }
+    // all the heart related animations
+    heartbeat();
+    floatMovementHeart();
+    heartRotation();
 
-    // checking if the direction is up or down, animate from that value
-    if(directionHeartUp == true){
-      middle.position.y += 0.005
-    }else{
-      middle.position.y -= 0.005
-    }
     // render using requestAnimationFrame will cause it to loop the function over and over
     requestAnimationFrame(animate);
     render();

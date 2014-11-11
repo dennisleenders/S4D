@@ -1,6 +1,7 @@
 
 // initiates the renderer, this renderer will loop every millsecond
 animate();
+audioBackground.play();
 
 // this interval will set the float direction of the triangles
 setInterval(setTriangleDirection,50000)
@@ -33,7 +34,7 @@ function animate(time) {
 
     // rotate the triangles around its axes except the heart
     scene.traverse(function (e) {
-        if (e instanceof THREE.Mesh && e.name != "middle") {
+        if (e instanceof THREE.Mesh && e.name != "pyramid") {
             // if set to controls.speed it WILL spawn the blocks.
             // voice speed will not spawn the blocks.
             e.rotation.x += rotationSpeed;
@@ -48,23 +49,11 @@ function animate(time) {
         }
     });
 
-    // hovering of the heart
-    // checks if the position is higher or lower than set value
-    // will change direction if its higher than 18 or lower than 17
-    if(middle.position.y >= 18 && directionHeartUp == true){
-      directionHeartUp = false;
-      directionHeartDown = true;
-    }else if(middle.position.y <= 17 && directionHeartDown == true){
-      directionHeartUp = true;
-      directionHeartDown = false;
-    }
+    // all the heart related animations
+    heartbeat();
+    floatMovementHeart();
+    heartRotation();
 
-    // checking if the direction is up or down, animate from that value
-    if(directionHeartUp == true){
-      middle.position.y += 0.005
-    }else{
-      middle.position.y -= 0.005
-    }
     // render using requestAnimationFrame will cause it to loop the function over and over
     requestAnimationFrame(animate);
     render();

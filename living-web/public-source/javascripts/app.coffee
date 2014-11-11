@@ -12,8 +12,12 @@
 //= require constructor/audio-manipulation.js
 //= require constructor/scene-init.js
 //= require constructor/triangle.js
+//= require constructor/pyramid.js
 //= require constructor/sphere.js
 
+//= require constructor/audio.js
+//= require constructor/heart-beat.js
+//= require constructor/heart-movement.js
 //= require constructor/event-mousedown.js
 //= require constructor/event-windowresize.js
 //= require constructor/event-scroll.js

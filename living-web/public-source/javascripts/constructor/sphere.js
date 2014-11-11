@@ -7,7 +7,7 @@ middle.castShadow = true;
 middle.name = "middle";
 
 // position the cube randomly in the scene
-middle.position.x = 0;
+middle.position.x = 30;
 middle.position.y = 17;
 middle.position.z = 30;
 scene.add(middle);      

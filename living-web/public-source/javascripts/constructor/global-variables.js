@@ -10,6 +10,22 @@ var scrollSpeed;
 var checkScroll;
 var triangleFloatLeft = true;
 
+// Pyramid motion variables
+var pyramidTopUp = true;
+var pyramidTopDown = false;
+
+var pyramidBottomUp = true;
+var pyramidBottomDown = false;
+
+var pyramidBeatTopMax = true;
+var pyramidBeatTopMin = false;
+
+var heartbeatIncrement = 0.005;
+var heartbeatDecrement = 0.002;
+
+var heartMaxScale = 1.15;
+var heartMinScale = 1;
+
 // Will hold all the multiple material objects for click events
 // WE only need this because we have multiple material objects, else we could use
 // scene.childerns array
