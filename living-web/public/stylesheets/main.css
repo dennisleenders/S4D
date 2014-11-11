@@ -65,3 +65,13 @@ html, body {
 /* line 22, ../../public-source/stylesheets/general/general.scss */
 section {
   display: inline-block; }
+
+/* line 1, ../../public-source/stylesheets/construct/module/section.scss */
+section {
+  display: block;
+  postion: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: black; }
