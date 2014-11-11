@@ -4,8 +4,6 @@
 	<meta charset="UTF-8">
 	<title>ThreeJS Diamond</title>
 	<script type="text/javascript" src="libs/three.js"></script>
-	<script type="text/javascript" src="libs/stats.js"></script>
-	<script type="text/javascript" src="libs/dat.gui.js"></script>
 	<script type="text/javascript" src="libs/orbitcontrols.js"></script>
 	<script type="text/javascript" src="libs/jquery-1.11.1.js"></script>
 	<style>
@@ -126,8 +124,10 @@
 		var heartMaxScale = 1.15;
 		var heartMinScale = 1;
 
-		var audioHeartbeat = new Audio('beat4.m4a');
-		var audioBackground = new Audio('background2.wav');
+		var audioHeartbeat = new Audio('beat.m4a');
+		audioHeartbeat.volume = 0.2;
+		var audioBackground = new Audio('background.mp3');
+		audioBackground.volume = 0.4;
 		audioBackground.addEventListener('ended', function() {
 		    this.currentTime = 0;
 		    this.play();
