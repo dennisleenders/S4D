@@ -39227,6 +39227,7 @@ var directionHeartDown = false;
 var isScroll = false;
 var scrollSpeed;
 var checkScroll;
+var triangleFloatLeft = true;
 
 // Will hold all the multiple material objects for click events
 // WE only need this because we have multiple material objects, else we could use
@@ -39546,6 +39547,19 @@ function stopScroll(){
 // initiates the renderer, this renderer will loop every millsecond
 animate();
 
+// this interval will set the float direction of the triangles
+setInterval(setTriangleDirection,50000)
+
+// the function that decides the direction
+function setTriangleDirection(){
+  if(triangleFloatLeft){
+    triangleFloatLeft = false;
+    console.log("false");
+  }else{
+    triangleFloatLeft = true;
+  }
+}
+
 function animate(time) {
     stats.update();
 
@@ -39562,7 +39576,6 @@ function animate(time) {
         }
      }
 
-
     // rotate the triangles around its axes except the heart
     scene.traverse(function (e) {
         if (e instanceof THREE.Mesh && e.name != "middle") {
@@ -39572,7 +39585,11 @@ function animate(time) {
             e.rotation.y += rotationSpeed;
             e.rotation.z += rotationSpeed;
 
-            //e.position.x += 0.01;
+            if(triangleFloatLeft){
+              e.position.x += 0.01;
+            }else{
+              e.position.x -= 0.01;
+            }
         }
     });
 
