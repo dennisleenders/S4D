@@ -69,9 +69,24 @@ section {
 /* line 1, ../../public-source/stylesheets/construct/module/section.scss */
 section {
   display: block;
-  postion: absolute;
+  position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
+  opacity: 0.7;
   background: black; }
+
+/* line 2, ../../public-source/stylesheets/construct/module/loaders.scss */
+.chrome-check .content {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 650px;
+  width: 900px;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }

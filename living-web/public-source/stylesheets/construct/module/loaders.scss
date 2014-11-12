@@ -1,0 +1,11 @@
+.chrome-check {
+  .content{
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 650px;
+    width: 900px;
+    @include transform(translate(-50%,-50%));
+  }
+}
