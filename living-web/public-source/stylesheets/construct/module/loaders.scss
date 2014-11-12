@@ -1,76 +1,80 @@
-.chrome-check {
-    display: none;
-    opacity: 0.95;
-  .content {
+// General styles
+.content {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 300px;
+  width: 900px;
+  opacity:0.9;
+  @include transform(translate(-50%,-50%));
+
+  .image-holder {
     display: block;
-    position: absolute;
+    position: relative;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    margin-top:20px;
+    img {
+      width:100%;
+    }
+  }
+  .text-holder {
+    display:block;
+    width:350px;
+    margin: 0 auto;
+    margin-top:40px;
+    h2 {
+      line-height: 16px;
+    }
+  }
+}
+
+// Chrome checker
+.chrome-check {
+  display: none;
+  opacity: 0.95;
+  .chrome-button {
+    display:block;
+    position:absolute;
+    bottom:0;
     left: 50%;
-    top: 50%;
-    height: 300px;
-    width: 900px;
-    opacity:0.9;
-    @include transform(translate(-50%,-50%));
+    margin-left: -175px;
+    width: 350px;
+    height: 40px;
+    background: white;
+    text-align: center;
+    line-height: 35px;
+    
+    h2 {
+      color:black;
+      font-size: 16px;
+      z-index: 99;
+    }
 
-    .image-holder {
+    .chrome-hover {
       display: block;
-      position: relative;
-      height: 100px;
-      width: 100px;
-      margin: 0 auto;
-      margin-top:20px;
-      img {
-        width:100%;
-      }
-    }
-    .text-holder {
-      display:block;
-      width:350px;
-      margin: 0 auto;
-      margin-top:40px;
-      h2 {
-        line-height: 16px;
-      }
-    }
-    .chrome-button {
-      display:block;
-      position:absolute;
+      position: absolute;
       bottom:0;
-      left: 50%;
-      margin-left: -175px;
+      left: 0;
       width: 350px;
-      height: 40px;
-      background: white;
-      text-align: center;
-      line-height: 35px;
-      
-      h2 {
-        color:black;
-        font-size: 16px;
-        z-index: 99;
-      }
+      height: 4px;
+      background:$red;
+      @include transition(height .3s ease-in-out);
+      z-index: 1;
+    }
 
-      .chrome-hover {
-        display: block;
-        position: absolute;
-        bottom:0;
-        left: 0;
-        width: 350px;
-        height: 4px;
-        background:$red;
+    &:hover {
+      .chrome-hover{
+        height: 7px;
         @include transition(height .3s ease-in-out);
-        z-index: 1;
-      }
-
-      &:hover {
-        .chrome-hover{
-          height: 7px;
-          @include transition(height .3s ease-in-out);
-        }
       }
     }
   }
 }
 
+// Background for the chrome checker
 .chrome-background {
   display: none;
   position: absolute;
@@ -82,3 +86,83 @@
   }
 }
 
+// Keyframes for the animation
+@-webkit-keyframes heartmask {
+  0% {top:0;}
+  40% {top:-90px;}
+  50% {top:-90px;}
+  75% {top:-200px;}
+  80% {top:-200px;}
+  100%{top:-260px;}
+}
+
+@-webkit-keyframes heartwhite {
+  0% {top:0;}
+  40% {top:90px;}
+  50% {top:90px;}
+  75% {top:200px;}
+  80% {top:200px;}
+  100%{top:260px;}
+}
+
+// Loader
+.loader {
+  .content{
+    height: 480px;
+    overflow: hidden;
+    .image-holder{
+      width: 200px;
+      height: 50px;
+      &.heart{
+        height: 260px;
+      }
+
+      &.white {
+        display: block;
+        position: absolute;
+        top:0;
+        left: 350px;
+        overflow: hidden;
+        -webkit-animation: heartmask 5s ;
+        -webkit-animation-fill-mode: forwards;
+
+        img {
+          position: absolute;
+          left: 22px;
+          -webkit-animation: heartwhite 5s ;
+          -webkit-animation-fill-mode: forwards;
+        }
+      }
+
+      img {
+        vertical-align: middle;
+        &.heart {
+          width: 155px;
+        } 
+        &.headphone{
+          width: 50px;
+          opacity: 0.6;
+        } 
+      }
+    }
+    .text-holder{
+      margin-top: 20px;
+      &.logo {
+        width: auto;
+        margin-bottom:20px;
+        margin-top: 30px;
+      }
+      h2 {
+
+      }
+    }
+    .seperator {
+      display: block;
+      position: relative;
+      height: 1px;
+      width: 410px;
+      background: white;
+      margin: 0 auto;
+    }  
+  }
+}
