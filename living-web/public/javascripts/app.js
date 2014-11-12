@@ -39354,7 +39354,7 @@ raycaster = new THREE.Raycaster();
 // position and point the camera to the center of the scene
 camera.position.x = 0; //0
 camera.position.y = 10; //10
-camera.position.z = 69; // 74
+camera.position.z = 65; // 74
 //camera.lookAt(scene.position);
 
 // add the output of the renderer to the html element
@@ -39775,7 +39775,7 @@ function animate(time) {
 
     // check if there is a scroll event going on
      if(isScroll){
-        if((camera.position.z >= 70 && scrollSpeed > 0) || (camera.position.z <= 13.4 && scrollSpeed < 0)){
+        if((camera.position.z >= 66 && scrollSpeed > 0) || (camera.position.z <= 13.4 && scrollSpeed < 0)){
         }else {
             camera.position.z = camera.position.z + scrollSpeed
         }
