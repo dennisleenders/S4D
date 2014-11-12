@@ -1,6 +1,6 @@
 
 // triangle spawn
-for (var i = 0; i < 1000; i++) {
+for (var i = 0; i < 750; i++) {
     var randomNumber = Math.random();
     var triangleGeometry = new THREE.TetrahedronGeometry(randomNumber,0);
     var triangleMaterialDepth = new THREE.MeshDepthMaterial();

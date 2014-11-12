@@ -39252,6 +39252,13 @@ function peopleWhoDontUseChromeDetector() {
 peopleWhoDontUseChromeDetector();
 
 
+// setting the timeout for the loading screen
+setTimeout(function() {
+  $(".loader").fadeOut(2000,"swing");
+  console.log("fade");
+}, 8000);
+
+
 
 // All global variables we will be using
 var speed;
@@ -39356,7 +39363,7 @@ $("#WebGL-output").append(renderer.domElement);
 
 
 // triangle spawn
-for (var i = 0; i < 1000; i++) {
+for (var i = 0; i < 750; i++) {
     var randomNumber = Math.random();
     var triangleGeometry = new THREE.TetrahedronGeometry(randomNumber,0);
     var triangleMaterialDepth = new THREE.MeshDepthMaterial();
