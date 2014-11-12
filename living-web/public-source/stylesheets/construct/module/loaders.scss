@@ -1,5 +1,6 @@
 .chrome-check {
-    //display: none;
+    display: none;
+    opacity: 0.96;
   .content {
     display: block;
     position: absolute;
@@ -40,7 +41,7 @@
       height: 40px;
       background: white;
       text-align: center;
-      line-height: 40px;
+      line-height: 35px;
       
       h2 {
         color:black;
@@ -67,6 +68,17 @@
         }
       }
     }
+  }
+}
+
+.chrome-background {
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  img {
+    width: 100%;
   }
 }
 
