@@ -54,17 +54,27 @@ a img {
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block; }
 
-/* line 14, ../../public-source/stylesheets/general/general.scss */
+/* line 10, ../../public-source/stylesheets/general/general.scss */
 html, body {
   height: 100%;
   width: 100%;
-  background: #ecf0f1;
   text-align: center;
   overflow: hidden; }
 
-/* line 22, ../../public-source/stylesheets/general/general.scss */
+/* line 17, ../../public-source/stylesheets/general/general.scss */
 section {
   display: inline-block; }
+
+/* line 21, ../../public-source/stylesheets/general/general.scss */
+h2 {
+  font-family: "Raleway";
+  font-size: 12px;
+  font-weight: 300;
+  color: white; }
+
+/* line 28, ../../public-source/stylesheets/general/general.scss */
+a {
+  text-decoration: none; }
 
 /* line 1, ../../public-source/stylesheets/construct/module/section.scss */
 section {
@@ -74,19 +84,78 @@ section {
   left: 0;
   height: 100%;
   width: 100%;
-  opacity: 0.7;
-  background: black; }
+  opacity: 1;
+  background: #0f0f0f; }
 
-/* line 2, ../../public-source/stylesheets/construct/module/loaders.scss */
+/* line 3, ../../public-source/stylesheets/construct/module/loaders.scss */
 .chrome-check .content {
   display: block;
   position: absolute;
   left: 50%;
   top: 50%;
-  height: 650px;
+  height: 300px;
   width: 900px;
+  opacity: 0.9;
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
+  /* line 13, ../../public-source/stylesheets/construct/module/loaders.scss */
+  .chrome-check .content .image-holder {
+    display: block;
+    position: relative;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 20px; }
+    /* line 20, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .chrome-check .content .image-holder img {
+      width: 100%; }
+  /* line 24, ../../public-source/stylesheets/construct/module/loaders.scss */
+  .chrome-check .content .text-holder {
+    display: block;
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 40px; }
+    /* line 29, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .chrome-check .content .text-holder h2 {
+      line-height: 16px; }
+  /* line 33, ../../public-source/stylesheets/construct/module/loaders.scss */
+  .chrome-check .content .chrome-button {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -175px;
+    width: 350px;
+    height: 40px;
+    background: white;
+    text-align: center;
+    line-height: 40px; }
+    /* line 45, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .chrome-check .content .chrome-button h2 {
+      color: black;
+      font-size: 16px;
+      z-index: 99; }
+    /* line 51, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .chrome-check .content .chrome-button .chrome-hover {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 350px;
+      height: 4px;
+      background: #e55744;
+      -webkit-transition: height 0.3s ease-in-out;
+      -moz-transition: height 0.3s ease-in-out;
+      -o-transition: height 0.3s ease-in-out;
+      transition: height 0.3s ease-in-out;
+      z-index: 1; }
+    /* line 64, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .chrome-check .content .chrome-button:hover .chrome-hover {
+      height: 7px;
+      -webkit-transition: height 0.3s ease-in-out;
+      -moz-transition: height 0.3s ease-in-out;
+      -o-transition: height 0.3s ease-in-out;
+      transition: height 0.3s ease-in-out; }
