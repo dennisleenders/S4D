@@ -12,3 +12,23 @@ audioBackground.addEventListener('ended', function() {
     this.currentTime = 0;
     this.play();
 }, false);
+
+
+var hasClickedVolume = false;
+
+//Sound on and off
+$(".sound-control").click(function(){
+	if(hasClickedVolume == false){
+		audioBackground.volume = 0;
+		audioHeartbeat.volume = 0;
+		$(".sound").attr('src', "public/media/img/sound_off.png");
+		hasClickedVolume = true;
+
+
+	} else if (hasClickedVolume == true){
+		audioBackground.volume = 0.4;
+		audioHeartbeat.volume = 0.2;
+		$(".sound").attr('src', "public/media/img/sound_on.png");
+		hasClickedVolume = false;
+	}
+});
