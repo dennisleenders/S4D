@@ -39649,6 +39649,14 @@ function doFadetoWhite(i) {
 }
 
 
+// adds a listener for the mouse event
+document.addEventListener( 'mouseover', onDocumentMouseOver, false );
+
+function onDocumentMouseOver( e ) {
+
+}
+
+
 // adds event listener for resize
 window.addEventListener("resize", onWindowResize);
 
