@@ -10,7 +10,6 @@ setInterval(setTriangleDirection,50000)
 function setTriangleDirection(){
   if(triangleFloatLeft){
     triangleFloatLeft = false;
-    console.log("false");
   }else{
     triangleFloatLeft = true;
   }
