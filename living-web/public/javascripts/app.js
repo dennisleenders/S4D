@@ -39775,7 +39775,7 @@ function animate(time) {
 
     // check if there is a scroll event going on
      if(isScroll){
-        if((camera.position.z >= 66 && scrollSpeed > 0) || (camera.position.z <= 13.4 && scrollSpeed < 0)){
+        if((camera.position.z >= 66 && scrollSpeed > 0) || (camera.position.z <= 19.4 && scrollSpeed < 0)){
         }else {
             camera.position.z = camera.position.z + scrollSpeed
         }

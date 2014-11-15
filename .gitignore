@@ -4,4 +4,6 @@ DS_Store
 
 media
 node_modules
+
+living-web/.sass-cache/
 .sass-cache
