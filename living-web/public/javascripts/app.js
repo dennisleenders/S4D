@@ -39217,6 +39217,47 @@ dat.dom.dom,
 dat.utils.common);
 
 
+function browserDetection() {  
+  //Check if browser is IE or not
+  if (navigator.userAgent.search("MSIE") >= 0) {
+      alert("Browser is InternetExplorer");
+  }
+  //Check if browser is Chrome or not
+  else if (navigator.userAgent.search("Chrome") >= 0) {
+      alert("Browser is Chrome");
+  }
+  //Check if browser is Firefox or not
+  else if (navigator.userAgent.search("Firefox") >= 0) {
+      alert("Browser is FireFox");
+  }
+  //Check if browser is Safari or not
+  else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+      alert("Browser is Safari");
+  }
+  //Check if browser is Opera or not
+  else if (navigator.userAgent.search("Opera") >= 0) {
+      alert("Browser is Opera");
+  }
+}
+
+
+function peopleWhoDontUseChromeDetector() {  
+  //Check if browser is IE or not
+  if (navigator.userAgent.search("Chrome") <= 0) {
+      $(".chrome-check").css("display","block")
+      $(".chrome-background").css("display","block")
+  }
+}
+
+peopleWhoDontUseChromeDetector();
+
+
+// setting the timeout for the loading screen
+setTimeout(function() {
+  $(".loader").fadeOut(2000,"swing");
+}, 8000);
+
+
 
 // All global variables we will be using
 var speed;
@@ -39313,7 +39354,7 @@ raycaster = new THREE.Raycaster();
 // position and point the camera to the center of the scene
 camera.position.x = 0; //0
 camera.position.y = 10; //10
-camera.position.z = 69; // 74
+camera.position.z = 65; // 74
 //camera.lookAt(scene.position);
 
 // add the output of the renderer to the html element
@@ -39321,7 +39362,7 @@ $("#WebGL-output").append(renderer.domElement);
 
 
 // triangle spawn
-for (var i = 0; i < 1000; i++) {
+for (var i = 0; i < 750; i++) {
     var randomNumber = Math.random();
     var triangleGeometry = new THREE.TetrahedronGeometry(randomNumber,0);
     var triangleMaterialDepth = new THREE.MeshDepthMaterial();
@@ -39650,60 +39691,60 @@ function stopScroll(){
 }
 
 
-var controls = new function () {
-    this.cameraNear = camera.near;
-    this.cameraFar = camera.far;
-    this.cameraX = camera.position.x;
-    this.cameraZ = camera.position.z;
-    this.cameraY = camera.position.y;
+// var controls = new function () {
+//     this.cameraNear = camera.near;
+//     this.cameraFar = camera.far;
+//     this.cameraX = camera.position.x;
+//     this.cameraZ = camera.position.z;
+//     this.cameraY = camera.position.y;
 
-    this.removeCube = function () {
-        var allChildren = scene.children;
-        var lastObject = allChildren[allChildren.length - 1];
-        if (lastObject instanceof THREE.Mesh) {
-            scene.remove(lastObject);
-        }
-    }
+//     this.removeCube = function () {
+//         var allChildren = scene.children;
+//         var lastObject = allChildren[allChildren.length - 1];
+//         if (lastObject instanceof THREE.Mesh) {
+//             scene.remove(lastObject);
+//         }
+//     }
 
-    this.addTriangle = function () {
-        var cubeSize = Math.random();
-        var cubeGeometry = new THREE.TetrahedronGeometry(cubeSize,0);
-        var cubeMaterial = new THREE.MeshLambertMaterial({color: Math.random() * 0xffffff });
-        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        cube.castShadow = true;
+//     this.addTriangle = function () {
+//         var cubeSize = Math.random();
+//         var cubeGeometry = new THREE.TetrahedronGeometry(cubeSize,0);
+//         var cubeMaterial = new THREE.MeshLambertMaterial({color: Math.random() * 0xffffff });
+//         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+//         cube.castShadow = true;
 
-        // position the cube randomly in the scene
-        cube.position.x = -60 + Math.round((Math.random() * 100));
-        cube.position.y = Math.round((Math.random() * 10));
-        cube.position.z = -100 + Math.round((Math.random() * 150));
+//         // position the cube randomly in the scene
+//         cube.position.x = -60 + Math.round((Math.random() * 100));
+//         cube.position.y = Math.round((Math.random() * 10));
+//         cube.position.z = -100 + Math.round((Math.random() * 150));
 
-        // add the cube to the scene
-        scene.add(cube);
-    };
+//         // add the cube to the scene
+//         scene.add(cube);
+//     };
 
-    this.outputObjects = function () {
-        console.log(scene.children);
-    }
-}
+//     this.outputObjects = function () {
+//         console.log(scene.children);
+//     }
+// }
 
-var gui = new dat.GUI();
-gui.add(controls, 'addTriangle');
-gui.add(controls, 'removeCube');
-gui.add(controls, 'cameraNear', 0, 50).onChange(function (e) {
-    camera.near = e;
-});
-gui.add(controls, 'cameraFar', 50, 200).onChange(function (e) {
-    camera.far = e;
-});
-gui.add(controls, 'cameraX', 0, 200).onChange(function (e) {
-    camera.position.x = e;
-});
-gui.add(controls, 'cameraY', 0, 200).onChange(function (e) {
-    camera.position.y = e;
-});
-gui.add(controls, 'cameraZ', 0, 200).onChange(function (e) {
-    camera.position.z = e;
-});
+// var gui = new dat.GUI();
+// gui.add(controls, 'addTriangle');
+// gui.add(controls, 'removeCube');
+// gui.add(controls, 'cameraNear', 0, 50).onChange(function (e) {
+//     camera.near = e;
+// });
+// gui.add(controls, 'cameraFar', 50, 200).onChange(function (e) {
+//     camera.far = e;
+// });
+// gui.add(controls, 'cameraX', 0, 200).onChange(function (e) {
+//     camera.position.x = e;
+// });
+// gui.add(controls, 'cameraY', 0, 200).onChange(function (e) {
+//     camera.position.y = e;
+// });
+// gui.add(controls, 'cameraZ', 0, 200).onChange(function (e) {
+//     camera.position.z = e;
+// });
 
 
 
@@ -39734,7 +39775,7 @@ function animate(time) {
 
     // check if there is a scroll event going on
      if(isScroll){
-        if((camera.position.z >= 70 && scrollSpeed > 0) || (camera.position.z <= 13.4 && scrollSpeed < 0)){
+        if((camera.position.z >= 66 && scrollSpeed > 0) || (camera.position.z <= 19.4 && scrollSpeed < 0)){
         }else {
             camera.position.z = camera.position.z + scrollSpeed
         }

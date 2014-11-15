@@ -24,7 +24,7 @@ raycaster = new THREE.Raycaster();
 // position and point the camera to the center of the scene
 camera.position.x = 0; //0
 camera.position.y = 10; //10
-camera.position.z = 69; // 74
+camera.position.z = 65; // 74
 //camera.lookAt(scene.position);
 
 // add the output of the renderer to the html element

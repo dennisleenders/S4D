@@ -7,6 +7,9 @@
 //= require vendor/stats.js
 //= require vendor/datgui.js
 
+//= require constructor/browser-check.js
+//= require constructor/loader.js
+
 //= require constructor/global-variables.js
 
 //= require constructor/audio-manipulation.js

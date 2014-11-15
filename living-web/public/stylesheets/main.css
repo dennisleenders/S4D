@@ -54,14 +54,252 @@ a img {
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block; }
 
-/* line 14, ../../public-source/stylesheets/general/general.scss */
+/* line 10, ../../public-source/stylesheets/general/general.scss */
 html, body {
   height: 100%;
   width: 100%;
-  background: #ecf0f1;
   text-align: center;
   overflow: hidden; }
 
-/* line 22, ../../public-source/stylesheets/general/general.scss */
+/* line 17, ../../public-source/stylesheets/general/general.scss */
 section {
   display: inline-block; }
+
+/* line 21, ../../public-source/stylesheets/general/general.scss */
+h2 {
+  font-family: "Raleway";
+  font-size: 11px;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 1px; }
+
+/* line 29, ../../public-source/stylesheets/general/general.scss */
+h3 {
+  font-family: "Raleway";
+  font-size: 20px;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 2px; }
+
+/* line 37, ../../public-source/stylesheets/general/general.scss */
+a {
+  text-decoration: none; }
+
+/* line 1, ../../public-source/stylesheets/construct/module/section.scss */
+section {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  background: #0f0f0f; }
+
+/* line 3, ../../public-source/stylesheets/construct/module/logo.scss */
+.text-holder.logo {
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  margin-left: -70px; }
+  /* line 10, ../../public-source/stylesheets/construct/module/logo.scss */
+  .text-holder.logo h3 {
+    font-size: 14px; }
+
+/* line 2, ../../public-source/stylesheets/construct/module/loaders.scss */
+.content {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 300px;
+  width: 900px;
+  opacity: 0.9;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+  /* line 12, ../../public-source/stylesheets/construct/module/loaders.scss */
+  .content .image-holder {
+    display: block;
+    position: relative;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 20px; }
+    /* line 19, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .content .image-holder img {
+      width: 100%; }
+  /* line 23, ../../public-source/stylesheets/construct/module/loaders.scss */
+  .content .text-holder {
+    display: block;
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 40px; }
+    /* line 28, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .content .text-holder h2 {
+      line-height: 16px; }
+
+/* line 35, ../../public-source/stylesheets/construct/module/loaders.scss */
+.chrome-check {
+  display: none;
+  opacity: 0.95; }
+  /* line 38, ../../public-source/stylesheets/construct/module/loaders.scss */
+  .chrome-check .chrome-button {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -175px;
+    width: 350px;
+    height: 40px;
+    background: white;
+    text-align: center;
+    line-height: 35px; }
+    /* line 50, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .chrome-check .chrome-button h2 {
+      color: black;
+      font-size: 16px;
+      z-index: 99; }
+    /* line 56, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .chrome-check .chrome-button .chrome-hover {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 350px;
+      height: 4px;
+      background: #e55744;
+      -webkit-transition: height 0.3s ease-in-out;
+      -moz-transition: height 0.3s ease-in-out;
+      -o-transition: height 0.3s ease-in-out;
+      transition: height 0.3s ease-in-out;
+      z-index: 1; }
+    /* line 69, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .chrome-check .chrome-button:hover .chrome-hover {
+      height: 7px;
+      -webkit-transition: height 0.3s ease-in-out;
+      -moz-transition: height 0.3s ease-in-out;
+      -o-transition: height 0.3s ease-in-out;
+      transition: height 0.3s ease-in-out; }
+
+/* line 78, ../../public-source/stylesheets/construct/module/loaders.scss */
+.chrome-background {
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%; }
+  /* line 84, ../../public-source/stylesheets/construct/module/loaders.scss */
+  .chrome-background img {
+    width: 100%; }
+
+@-webkit-keyframes heartmask {
+  /* line 91, ../../public-source/stylesheets/construct/module/loaders.scss */
+  0% {
+    top: 0; }
+
+  /* line 92, ../../public-source/stylesheets/construct/module/loaders.scss */
+  40% {
+    top: -90px; }
+
+  /* line 93, ../../public-source/stylesheets/construct/module/loaders.scss */
+  50% {
+    top: -90px; }
+
+  /* line 94, ../../public-source/stylesheets/construct/module/loaders.scss */
+  75% {
+    top: -200px; }
+
+  /* line 95, ../../public-source/stylesheets/construct/module/loaders.scss */
+  80% {
+    top: -200px; }
+
+  /* line 96, ../../public-source/stylesheets/construct/module/loaders.scss */
+  100% {
+    top: -260px; } }
+
+@-webkit-keyframes heartwhite {
+  /* line 100, ../../public-source/stylesheets/construct/module/loaders.scss */
+  0% {
+    top: 0; }
+
+  /* line 101, ../../public-source/stylesheets/construct/module/loaders.scss */
+  40% {
+    top: 90px; }
+
+  /* line 102, ../../public-source/stylesheets/construct/module/loaders.scss */
+  50% {
+    top: 90px; }
+
+  /* line 103, ../../public-source/stylesheets/construct/module/loaders.scss */
+  75% {
+    top: 200px; }
+
+  /* line 104, ../../public-source/stylesheets/construct/module/loaders.scss */
+  80% {
+    top: 200px; }
+
+  /* line 105, ../../public-source/stylesheets/construct/module/loaders.scss */
+  100% {
+    top: 260px; } }
+
+/* line 110, ../../public-source/stylesheets/construct/module/loaders.scss */
+.loader .content {
+  height: 480px;
+  overflow: hidden; }
+  /* line 113, ../../public-source/stylesheets/construct/module/loaders.scss */
+  .loader .content .image-holder {
+    width: 200px;
+    height: 50px; }
+    /* line 116, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .loader .content .image-holder.heart {
+      height: 260px; }
+    /* line 120, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .loader .content .image-holder.white {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 350px;
+      overflow: hidden;
+      -webkit-animation: heartmask 5s;
+      -webkit-animation-fill-mode: forwards; }
+      /* line 129, ../../public-source/stylesheets/construct/module/loaders.scss */
+      .loader .content .image-holder.white img {
+        position: absolute;
+        left: 22px;
+        -webkit-animation: heartwhite 5s;
+        -webkit-animation-fill-mode: forwards; }
+    /* line 137, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .loader .content .image-holder img {
+      vertical-align: middle; }
+      /* line 139, ../../public-source/stylesheets/construct/module/loaders.scss */
+      .loader .content .image-holder img.heart {
+        width: 155px; }
+      /* line 142, ../../public-source/stylesheets/construct/module/loaders.scss */
+      .loader .content .image-holder img.headphone {
+        width: 50px;
+        opacity: 0.6; }
+  /* line 148, ../../public-source/stylesheets/construct/module/loaders.scss */
+  .loader .content .text-holder {
+    margin-top: 20px;
+    position: relative;
+    top: 0;
+    left: 0; }
+    /* line 153, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .loader .content .text-holder.logo {
+      width: auto;
+      margin-bottom: 20px;
+      margin-top: 30px; }
+    /* line 158, ../../public-source/stylesheets/construct/module/loaders.scss */
+    .loader .content .text-holder h3 {
+      font-size: 20px; }
+  /* line 162, ../../public-source/stylesheets/construct/module/loaders.scss */
+  .loader .content .seperator {
+    display: block;
+    position: relative;
+    height: 1px;
+    width: 410px;
+    background: white;
+    margin: 0 auto; }
