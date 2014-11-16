@@ -40,14 +40,26 @@ function animate(time) {
             e.rotation.x += rotationSpeed;
             e.rotation.y += rotationSpeed;
             e.rotation.z += rotationSpeed;
-
-            if(triangleFloatLeft){
-              e.position.x += 0.01;
-            }else{
-              e.position.x -= 0.01;
-            }
         }
     });
+
+    // moves the camera to simulate the "moving" effect
+    // the camera will move left/right depending on the Interval timer
+    // also the heart will move at the same pace, so it will stay centered
+    // we're calling all pieces of the heart instead of doing a scene.traverse ( overkill )
+
+    if (triangleFloatLeft){
+      camera.position.x += 0.005
+      sphere.position.x += 0.005
+      pyramidMeshTop.position.x += 0.005
+      pyramidMeshBottom.position.x += 0.005
+    }else {
+      camera.position.x -= 0.005
+      sphere.position.x -= 0.005
+      pyramidMeshTop.position.x -= 0.005
+      pyramidMeshBottom.position.x -= 0.005
+    }
+
 
     // all the heart related animations
     heartbeat();

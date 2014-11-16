@@ -34,7 +34,7 @@ function doTriangleScale(intersection){
     z: scaleSize,
    }, scaleEase)
   tween.start();
-
+  
   // should have a check if the user is still on the object in question, no time for this now
   setTimeout(function(){
     doTriangleScaleRevert(intersection);

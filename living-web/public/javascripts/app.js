@@ -39381,7 +39381,7 @@ for (var i = 0; i < 750; i++) {
     var triangle = new THREE.SceneUtils.createMultiMaterialObject(triangleGeometry,[triangleMaterial,triangleMaterialWireframe,triangleMaterialDepth]);
 
     // position the triangle randomly in the scene
-    triangle.position.x = -60 + Math.round((Math.random() * 100)); // -60
+    triangle.position.x = -60 + Math.round((Math.random() * 120)); // -50 100
     triangle.position.y = Math.round((Math.random() * 10));
     triangle.position.z = -100 + Math.round((Math.random() * 150)); // -100
 
@@ -39684,7 +39684,7 @@ function doTriangleScale(intersection){
     z: scaleSize,
    }, scaleEase)
   tween.start();
-
+  
   // should have a check if the user is still on the object in question, no time for this now
   setTimeout(function(){
     doTriangleScaleRevert(intersection);
@@ -39843,14 +39843,26 @@ function animate(time) {
             e.rotation.x += rotationSpeed;
             e.rotation.y += rotationSpeed;
             e.rotation.z += rotationSpeed;
-
-            if(triangleFloatLeft){
-              e.position.x += 0.01;
-            }else{
-              e.position.x -= 0.01;
-            }
         }
     });
+
+    // moves the camera to simulate the "moving" effect
+    // the camera will move left/right depending on the Interval timer
+    // also the heart will move at the same pace, so it will stay centered
+    // we're calling all pieces of the heart instead of doing a scene.traverse ( overkill )
+
+    if (triangleFloatLeft){
+      camera.position.x += 0.005
+      sphere.position.x += 0.005
+      pyramidMeshTop.position.x += 0.005
+      pyramidMeshBottom.position.x += 0.005
+    }else {
+      camera.position.x -= 0.005
+      sphere.position.x -= 0.005
+      pyramidMeshTop.position.x -= 0.005
+      pyramidMeshBottom.position.x -= 0.005
+    }
+
 
     // all the heart related animations
     heartbeat();
