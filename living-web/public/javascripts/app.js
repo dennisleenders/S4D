@@ -39381,7 +39381,7 @@ for (var i = 0; i < 750; i++) {
     var triangle = new THREE.SceneUtils.createMultiMaterialObject(triangleGeometry,[triangleMaterial,triangleMaterialWireframe,triangleMaterialDepth]);
 
     // position the triangle randomly in the scene
-    triangle.position.x = -60 + Math.round((Math.random() * 100)); // -60
+    triangle.position.x = -60 + Math.round((Math.random() * 120)); // -50 100
     triangle.position.y = Math.round((Math.random() * 10));
     triangle.position.z = -100 + Math.round((Math.random() * 150)); // -100
 
@@ -39649,6 +39649,60 @@ function doFadetoWhite(i) {
 }
 
 
+// adds a listener for the mouse event
+window.addEventListener( 'mousemove', onDocumentMouseOver, false );
+
+// scale size
+var scaleSize = 1.7;
+var scaleEase = 600;
+
+function onDocumentMouseOver( e ) {
+  // makes a new vector that will register the position the mouse click (e.client) 
+  var vector = new THREE.Vector3();
+  vector.set( ( e.clientX / window.innerWidth ) * 2 - 1, - ( e.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+  // unproject will turn 3D space into 2D space so we can fetch the correct position
+  vector.unproject( camera );
+  // raycaster will get the correct coordinates 
+  raycaster.ray.set( camera.position, vector.sub( camera.position ).normalize() );
+
+  // if an intersection between our mouse and an object is found then do something to that object
+  // we call OBJECTS which is a array of all multiple material objects. if you use single material objects
+  // we will write scene.children
+  var intersects = raycaster.intersectObjects( objects );
+
+  if ( intersects.length > 0 ) {
+    doTriangleScale(intersects[0])
+  }
+}
+
+// initiates the scale transition
+function doTriangleScale(intersection){
+  var tween = new TWEEN.Tween(intersection.object.parent.scale)
+  .to({
+    x: scaleSize,
+    y: scaleSize,
+    z: scaleSize,
+   }, scaleEase)
+  tween.start();
+  
+  // should have a check if the user is still on the object in question, no time for this now
+  setTimeout(function(){
+    doTriangleScaleRevert(intersection);
+  }, 2000)
+}
+
+// triggers the scale revert to default
+function doTriangleScaleRevert(intersection) {
+  var tween = new TWEEN.Tween(intersection.object.parent.scale)
+  .to({
+    x: 1, 
+    y: 1, 
+    z: 1 
+  }, scaleEase)
+  tween.start();
+}
+
+
 // adds event listener for resize
 window.addEventListener("resize", onWindowResize);
 
@@ -39759,7 +39813,6 @@ setInterval(setTriangleDirection,50000)
 function setTriangleDirection(){
   if(triangleFloatLeft){
     triangleFloatLeft = false;
-    console.log("false");
   }else{
     triangleFloatLeft = true;
   }
@@ -39785,19 +39838,29 @@ function animate(time) {
     scene.traverse(function (e) {
         if (e instanceof THREE.Mesh && e.name != "pyramid") {
 
-            // if set to controls.speed it WILL spawn the blocks.
-            // voice speed will not spawn the blocks.
+            // changes the rotation to match voice volume
+            // if there is no voice, it will take a default value
             e.rotation.x += rotationSpeed;
             e.rotation.y += rotationSpeed;
             e.rotation.z += rotationSpeed;
-
-            if(triangleFloatLeft){
-              e.position.x += 0.01;
-            }else{
-              e.position.x -= 0.01;
-            }
         }
     });
+
+    // moves the camera to simulate the "moving" effect
+    // the camera will move left/right depending on the Interval timer
+    // also the heart will move at the same pace, so it will stay centered
+    // we're calling all pieces of the heart instead of doing a scene.traverse ( overkill )
+    if (triangleFloatLeft){
+      camera.position.x += 0.005
+      sphere.position.x += 0.005
+      pyramidMeshTop.position.x += 0.005
+      pyramidMeshBottom.position.x += 0.005
+    }else {
+      camera.position.x -= 0.005
+      sphere.position.x -= 0.005
+      pyramidMeshTop.position.x -= 0.005
+      pyramidMeshBottom.position.x -= 0.005
+    }
 
     // all the heart related animations
     heartbeat();

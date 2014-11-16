@@ -19,7 +19,7 @@ for (var i = 0; i < 750; i++) {
     var triangle = new THREE.SceneUtils.createMultiMaterialObject(triangleGeometry,[triangleMaterial,triangleMaterialWireframe,triangleMaterialDepth]);
 
     // position the triangle randomly in the scene
-    triangle.position.x = -60 + Math.round((Math.random() * 100)); // -60
+    triangle.position.x = -60 + Math.round((Math.random() * 120)); // -50 100
     triangle.position.y = Math.round((Math.random() * 10));
     triangle.position.z = -100 + Math.round((Math.random() * 150)); // -100
 
