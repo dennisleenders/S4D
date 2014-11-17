@@ -22,6 +22,12 @@ function onDocumentMouseOver( e ) {
 
   if ( intersects.length > 0 ) {
     doTriangleScale(intersects[0])
+
+    //jquery makes "mouseover" button appear
+    $(".mouseover").css({
+      opacity: 1,
+      transition : 'opacity 0.5s ease-in-out',
+    });
   }
 }
 

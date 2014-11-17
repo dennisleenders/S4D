@@ -24,7 +24,7 @@ function gotStream(stream) {
       speed = frequencyData[0]/1000;
       requestAnimationFrame(live);
 
-      //jquery makes "click" button appear
+      //jquery makes "microphone" button appear
       $(".microphone").css({
         opacity: 1,
         transition : 'opacity 0.5s ease-in-out',
