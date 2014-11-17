@@ -39324,6 +39324,14 @@ function gotStream(stream) {
       analyser.getByteFrequencyData(frequencyData);
       speed = frequencyData[0]/1000;
       requestAnimationFrame(live);
+
+      //jquery makes "microphone" button appear
+      if (speed >= 0.1){
+        $(".microphone").css({
+          opacity: 1,
+          transition : 'opacity 0.5s ease-in-out',
+        });
+      }
     }
     live();
 }
@@ -39474,6 +39482,25 @@ audioBackground.addEventListener('ended', function() {
     this.play();
 }, false);
 
+// variable that holds the clicked status
+var hasClickedVolume = false;
+
+//Sound on and off
+$(".sound-control").click(function(){
+  if(hasClickedVolume == false){
+    audioBackground.volume = 0;
+    audioHeartbeat.volume = 0;
+    $(".sound").attr('src', "public/media/img/sound_off.png");
+    hasClickedVolume = true;
+
+  } else if (hasClickedVolume == true){
+    audioBackground.volume = 0.4;
+    audioHeartbeat.volume = 0.2;
+    $(".sound").attr('src', "public/media/img/sound_on.png");
+    hasClickedVolume = false;
+  }
+});
+
 
 // the heartbeat function
 function heartbeat(){
@@ -39560,6 +39587,12 @@ document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 function onDocumentMouseDown( e ) {
   // will prevent default action
   e.preventDefault();
+
+  //jquery makes "click" button appear
+  $(".click").css({
+    opacity: 1,
+    transition : 'opacity 0.5s ease-in-out',
+  });
 
   // makes a new vector that will register the position the mouse click (e.client) 
   var vector = new THREE.Vector3();
@@ -39672,6 +39705,12 @@ function onDocumentMouseOver( e ) {
 
   if ( intersects.length > 0 ) {
     doTriangleScale(intersects[0])
+
+    //jquery makes "mouseover" button appear
+    $(".mouseover").css({
+      opacity: 1,
+      transition : 'opacity 0.5s ease-in-out',
+    });
   }
 }
 
@@ -39719,6 +39758,12 @@ function onWindowResize() {
 window.addEventListener( 'mousewheel', onDocumentScroll, false );
 
 function onDocumentScroll( e ) {
+
+  //jquery will make the scroll button appear when a scroll is initiated
+  $(".scroll").css({
+    opacity: 1,
+    transition : 'opacity 0.5s ease-in-out',
+  });
 
   // this will stop the timeout, so that another scroll can be initiated
   clearTimeout(checkScroll)

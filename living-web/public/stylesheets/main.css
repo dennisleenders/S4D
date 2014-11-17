@@ -77,7 +77,7 @@ h2 {
 h3 {
   font-family: "Raleway";
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 600;
   color: white;
   letter-spacing: 2px; }
 
@@ -100,12 +100,64 @@ section {
 .text-holder.logo {
   display: block;
   position: absolute;
-  top: 20px;
+  top: 30px;
   left: 50%;
   margin-left: -70px; }
   /* line 10, ../../public-source/stylesheets/construct/module/logo.scss */
   .text-holder.logo h3 {
     font-size: 14px; }
+
+/* line 3, ../../public-source/stylesheets/construct/module/buttons.scss */
+.buttons {
+  position: absolute;
+  top: 11px; }
+  /* line 6, ../../public-source/stylesheets/construct/module/buttons.scss */
+  .buttons .nav-button {
+    margin-left: 11px; }
+    /* line 8, ../../public-source/stylesheets/construct/module/buttons.scss */
+    .buttons .nav-button .nav-button-item {
+      display: inline-block;
+      width: 100%;
+      max-width: 35px;
+      padding: 10px; }
+      /* line 14, ../../public-source/stylesheets/construct/module/buttons.scss */
+      .buttons .nav-button .nav-button-item .click {
+        opacity: 0.1; }
+      /* line 18, ../../public-source/stylesheets/construct/module/buttons.scss */
+      .buttons .nav-button .nav-button-item .scroll {
+        opacity: 0.1; }
+      /* line 22, ../../public-source/stylesheets/construct/module/buttons.scss */
+      .buttons .nav-button .nav-button-item .microphone {
+        opacity: 0.1; }
+      /* line 26, ../../public-source/stylesheets/construct/module/buttons.scss */
+      .buttons .nav-button .nav-button-item .mouseover {
+        opacity: 0.1; }
+      /* line 30, ../../public-source/stylesheets/construct/module/buttons.scss */
+      .buttons .nav-button .nav-button-item img {
+        height: auto;
+        max-width: 100%;
+        text-align: middle; }
+
+/* line 40, ../../public-source/stylesheets/construct/module/buttons.scss */
+.sound-control {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  opacity: 0.2;
+  cursor: pointer; }
+  /* line 48, ../../public-source/stylesheets/construct/module/buttons.scss */
+  .sound-control:hover {
+    opacity: 1;
+    -webkit-transition: opacity 0.15s ease-in-out;
+    -moz-transition: opacity 0.15s ease-in-out;
+    -o-transition: opacity 0.15s ease-in-out;
+    transition: opacity 0.15s ease-in-out; }
+  /* line 52, ../../public-source/stylesheets/construct/module/buttons.scss */
+  .sound-control .sound {
+    width: 40px;
+    height: 40px; }
 
 /* line 2, ../../public-source/stylesheets/construct/module/loaders.scss */
 .content {

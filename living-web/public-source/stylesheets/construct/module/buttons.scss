@@ -2,13 +2,13 @@
 // Event buttons, that show which event triggered
 .buttons{
   position: absolute;
-  top: 30px;
+  top: 11px;
   .nav-button{
-    margin-left: 30px;
+    margin-left: 11px;
     .nav-button-item{
       display: inline-block;
       width: 100%;
-      max-width: 50px;
+      max-width: 35px;
       padding: 10px;
 
       .click{
@@ -23,6 +23,10 @@
         opacity: 0.1;
       }
 
+      .mouseover {
+        opacity: 0.1;
+      }
+
       img{
         height: auto;
         max-width: 100%;
@@ -32,7 +36,6 @@
   }
 }
 
-
 // Sound control with buttons
 .sound-control{
   position: absolute;
@@ -41,6 +44,7 @@
   margin-bottom: 10px;
   margin-right: 20px;
   opacity: 0.2;
+  cursor: pointer;
   &:hover{
     opacity: 1;
         @include transition(opacity .15s ease-in-out);

@@ -25,10 +25,12 @@ function gotStream(stream) {
       requestAnimationFrame(live);
 
       //jquery makes "microphone" button appear
-      $(".microphone").css({
-        opacity: 1,
-        transition : 'opacity 0.5s ease-in-out',
-      });
+      if (speed >= 0.1){
+        $(".microphone").css({
+          opacity: 1,
+          transition : 'opacity 0.5s ease-in-out',
+        });
+      }
     }
     live();
 }
