@@ -1,0 +1,48 @@
+
+// Event buttons, that show which event triggered
+.buttons{
+  position: absolute;
+  top: 30px;
+  .nav-button{
+    margin-left: 30px;
+    .nav-button-item{
+      display: inline-block;
+      width: 100%;
+      max-width: 50px;
+      padding: 10px;
+
+      .click{
+        opacity: 0.1;
+      }
+
+      .scroll{
+        opacity: 0.1;
+      }
+
+      img{
+        height: auto;
+        max-width: 100%;
+        text-align: middle;
+      }
+    }
+  }
+}
+
+
+// Sound control with buttons
+.sound-control{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  opacity: 0.2;
+  &:hover{
+    opacity: 1;
+        @include transition(opacity .15s ease-in-out);
+  }
+  .sound{
+    width: 40px;
+    height: 40px;
+  }
+}
