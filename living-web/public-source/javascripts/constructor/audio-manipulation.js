@@ -23,6 +23,14 @@ function gotStream(stream) {
       analyser.getByteFrequencyData(frequencyData);
       speed = frequencyData[0]/1000;
       requestAnimationFrame(live);
+
+      //jquery makes "microphone" button appear
+      if (speed >= 0.1){
+        $(".microphone").css({
+          opacity: 1,
+          transition : 'opacity 0.5s ease-in-out',
+        });
+      }
     }
     live();
 }

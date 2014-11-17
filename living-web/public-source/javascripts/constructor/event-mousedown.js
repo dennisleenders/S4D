@@ -6,6 +6,12 @@ function onDocumentMouseDown( e ) {
   // will prevent default action
   e.preventDefault();
 
+  //jquery makes "click" button appear
+  $(".click").css({
+    opacity: 1,
+    transition : 'opacity 0.5s ease-in-out',
+  });
+
   // makes a new vector that will register the position the mouse click (e.client) 
   var vector = new THREE.Vector3();
   vector.set( ( e.clientX / window.innerWidth ) * 2 - 1, - ( e.clientY / window.innerHeight ) * 2 + 1, 0.5 );
